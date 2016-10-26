@@ -7,4 +7,15 @@
     <string name="to_borrow_book_list">待借书单</string>
     <string name="app_slogan">后青春时期的读书笔记</string>
     <string name="btu_login_tips">图书馆登录</string>
+    <string name="edit_hit_lib_account">你的图书馆账号</string>
+    <string name="login">登录</string>
+    <string name="edit_tip_password">你的密码</string>
+    <string name="edit_tip_name">你的姓名</string>
+    <string name="search_hint">搜索图书馆</string>
+    <string name="no_search_result">未找到相关结果</string>
+    <string name="edit_tips">编辑头像和昵称</string>
+    <string name="about_us">关于我们</string>
+    <string name="settings">设置</string>
+    <string name="borrow_tips">借阅规则</string>
+    <string name="edit_change_nickname_tips">给自己起个好听的笔名吧</string>
 </resources>

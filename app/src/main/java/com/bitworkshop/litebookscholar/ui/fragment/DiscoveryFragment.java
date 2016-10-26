@@ -1,13 +1,11 @@
 package com.bitworkshop.litebookscholar.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bitworkshop.litebookscholar.R;
+import com.bitworkshop.litebookscholar.ui.activity.SearchBookActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by aidChow on 2016/10/16.
+ * 发现
+ * Created by AidChow on 2016/10/16.
  */
 
 public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemClickListener {
@@ -64,7 +64,7 @@ public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemCli
                 Toast.makeText(getActivity(), "扫一扫", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_search:
-                Toast.makeText(getActivity(), "搜索", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), SearchBookActivity.class));
                 return true;
             default:
                 return false;

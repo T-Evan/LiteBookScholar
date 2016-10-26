@@ -1,9 +1,11 @@
 package com.bitworkshop.litebookscholar.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,9 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bitworkshop.litebookscholar.R;
+import com.bitworkshop.litebookscholar.ui.activity.EditInfoActivity;
+import com.bitworkshop.litebookscholar.ui.view.CircleImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by aidChow on 2016/10/16.
@@ -26,8 +31,18 @@ public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickLis
     TextView tvToolbarTitle;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.nested_scroll_view)
-    NestedScrollView nestedScrollView;
+    @BindView(R.id.image_user_icon)
+    CircleImageView imageUserIcon;
+    @BindView(R.id.tv_user_nickname)
+    TextView tvUserNickname;
+    @BindView(R.id.card_view_change_user_info)
+    CardView cardViewChangeUserInfo;
+    @BindView(R.id.card_view_borrow_rule)
+    CardView cardViewBorrowRule;
+    @BindView(R.id.card_view_setting)
+    CardView cardViewSetting;
+    @BindView(R.id.card_view_about)
+    CardView cardViewAbout;
 
     public static MineFragment getInstance() {
         return new MineFragment();
@@ -66,6 +81,25 @@ public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickLis
             default:
                 return false;
         }
+    }
+
+    @OnClick({R.id.card_view_change_user_info, R.id.card_view_borrow_rule, R.id.card_view_setting, R.id.card_view_about})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.card_view_change_user_info:
+                goToActivity(EditInfoActivity.class);
+                break;
+            case R.id.card_view_borrow_rule:
+                break;
+            case R.id.card_view_setting:
+                break;
+            case R.id.card_view_about:
+                break;
+        }
+    }
+
+    private void goToActivity(Class activity) {
+        startActivity(new Intent(getActivity(), activity));
     }
 }
 

@@ -44,7 +44,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="120dp"
-                android:background="@drawable/login_btu_selector"
+                android:background="@drawable/to_login_btu_selector"
                 android:text="@string/btu_login_tips"
                 android:textColor="@color/colorAccent" />
         </LinearLayout>

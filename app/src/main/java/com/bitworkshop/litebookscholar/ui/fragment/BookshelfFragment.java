@@ -53,7 +53,6 @@ public class BookshelfFragment extends Fragment {
     private void initToolbar() {
         tvToolbarTitle.setVisibility(View.VISIBLE);
         tvToolbarTitle.setText(R.string.app_name);
-
     }
 
 }

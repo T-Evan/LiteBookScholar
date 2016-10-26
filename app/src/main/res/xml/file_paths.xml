@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-path
+        name="lit_images"
+        path="Android/data/com.bitworkshop.litebookscholar/files/Pictures" />
+</paths>

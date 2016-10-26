@@ -11,6 +11,9 @@ import android.widget.ProgressBar;
 
 import com.bitworkshop.litebookscholar.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,6 +26,8 @@ import butterknife.OnClick;
 public class SplashActivity extends AppCompatActivity {
     public static final String IS_LOGIN_FILE_NAME = "login_file";
     public static final String IS_LOGIN_KEY = "IS_LOGIN";
+    //activity集合
+    public static List<AppCompatActivity> activities = new ArrayList<>();
     @BindView(R.id.btu_login)
     Button btuLogin;
     @BindView(R.id.progress_bar)
@@ -48,9 +53,9 @@ public class SplashActivity extends AppCompatActivity {
 
     @OnClick(R.id.btu_login)
     public void onClick() {
-        Intent i = new Intent(SplashActivity.this, MainActivity.class);
+        activities.add(this);
+        Intent i = new Intent(SplashActivity.this, LoginActivity.class);
         startActivity(i);
-        finish();
     }
 
 }
