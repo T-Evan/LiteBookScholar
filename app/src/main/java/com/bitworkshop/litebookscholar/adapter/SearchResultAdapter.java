@@ -1,10 +1,12 @@
 package com.bitworkshop.litebookscholar.adapter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +15,7 @@ import com.bitworkshop.litebookscholar.asynctask.GetBookImage;
 import com.bitworkshop.litebookscholar.asynctask.ThreadPoolFactory;
 import com.bitworkshop.litebookscholar.entity.LibraryQueryListItm;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -47,12 +50,31 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        LibraryQueryListItm listItm = libraryQueryListItms.get(position);
-        if (listItm.getImge() != null) {
-            Glide.with(mContext).
-                    load(listItm.getImge()).into(holder.imageBook);
-        }
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        final LibraryQueryListItm listItm = libraryQueryListItms.get(position);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    exec = Executors.newCachedThreadPool(new ThreadPoolFactory());
+                    final String imageUrl = exec.submit(new GetBookImage(listItm.getBookTitle())).get();
+                    listItm.setImge(imageUrl);
+                    holder.imageBook.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Glide.with(mContext)
+                                    .load(listItm.getImge())
+                                    .placeholder(R.drawable.default_image)
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(holder.imageBook);
+                            exec.shutdown();
+                        }
+                    });
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
         holder.tvBookTitle.setText(listItm.getBookTitle());
         holder.tvBookAuthor.setText(listItm.getAuthor());
         holder.tvBookIndexNum.setText(listItm.getIndexBookNum());
@@ -81,9 +103,10 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         @BindView(R.id.tv_book_can_borrow)
         TextView tvBookCanBorrow;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
+
 }

@@ -2,6 +2,7 @@ package com.bitworkshop.litebookscholar.ui.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -21,8 +22,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bitworkshop.litebookscholar.R;
+import com.bitworkshop.litebookscholar.presenter.EditInfoPresenter;
 import com.bitworkshop.litebookscholar.ui.fragment.ChooseDialogFragment;
 import com.bitworkshop.litebookscholar.ui.view.CircleImageView;
+import com.bitworkshop.litebookscholar.ui.view.IEditUserInfoView;
+import com.bitworkshop.litebookscholar.util.MyToastUtils;
+import com.bitworkshop.litebookscholar.util.ProgressDialogUtil;
+import com.bitworkshop.litebookscholar.util.Utils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.StringSignature;
 import com.yalantis.ucrop.UCrop;
@@ -36,7 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class EditInfoActivity extends BaseActivity implements ChooseDialogFragment.OnDialogItemClickListener {
+public class EditInfoActivity extends BaseActivity implements ChooseDialogFragment.OnDialogItemClickListener, IEditUserInfoView {
 
     @BindView(R.id.tv_toolbar_title)
     TextView tvToolbarTitle;
@@ -55,13 +61,28 @@ public class EditInfoActivity extends BaseActivity implements ChooseDialogFragme
     private static final int REQUEST_IMAGE_FORM_PICK = 2;//从系统相册
     private Uri photoUri;
     private Uri postData;
+    private EditInfoPresenter editInfoPresenter;
+    private String userAccount;
+    private String password;
+    private String nickName;
+
+    public static void startActiviyForResult(Context context, String userAccount, String password) {
+        Intent intent = new Intent(context, EditInfoActivity.class);
+        intent.putExtra("useraccount", userAccount);
+        intent.putExtra("password", password);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_info);
         ButterKnife.bind(this);
+        Intent intent = getIntent();
+        userAccount = intent.getStringExtra("useraccount");
+        password = intent.getStringExtra("password");
         initToolbar();
+        editInfoPresenter = new EditInfoPresenter(this);
     }
 
     private void initToolbar() {
@@ -81,9 +102,22 @@ public class EditInfoActivity extends BaseActivity implements ChooseDialogFragme
                 chooseDialogFragment.show(fm, "show_dialog");
                 break;
             case R.id.btu_finish:
-                startActivity(new Intent(this, MainActivity.class));
-                finish();
+                updateUserInfo();
                 break;
+        }
+    }
+
+    private void updateUserInfo() {
+        System.out.println(getUserNickname() + "photoUri" + postData);
+        if (Utils.isOnline(this)) {
+            if (!getUserNickname().equals("") && postData != null) {
+                nickName = getUserNickname();
+                editInfoPresenter.postImageToQiniuYun(postData);
+            } else {
+                MyToastUtils.showToast(this, "图片和昵称不能为空");
+            }
+        } else {
+            MyToastUtils.showToast(this, "哎呀，好像没有网络");
         }
     }
 
@@ -193,7 +227,6 @@ public class EditInfoActivity extends BaseActivity implements ChooseDialogFragme
                 }
             }
         }
-
     }
 
     /**
@@ -231,4 +264,36 @@ public class EditInfoActivity extends BaseActivity implements ChooseDialogFragme
         }
 
     }
+
+
+    @Override
+    public String getUserNickname() {
+        return Utils.editextUtiils(editChangeNickname);
+    }
+
+    @Override
+    public void seccess() {
+        finish();
+    }
+
+    @Override
+    public void showLoading() {
+        ProgressDialogUtil.showProgressBar(this, "上传中");
+    }
+
+    @Override
+    public void hideLoading() {
+        ProgressDialogUtil.hideProgressDiaglog();
+    }
+
+    @Override
+    public void showError(String errorMsg) {
+        MyToastUtils.showToast(this, errorMsg);
+    }
+
+    @Override
+    public void setImageUrl(String imageUrl) {
+        editInfoPresenter.updateUserInfo(userAccount, password, imageUrl, nickName);
+    }
+
 }

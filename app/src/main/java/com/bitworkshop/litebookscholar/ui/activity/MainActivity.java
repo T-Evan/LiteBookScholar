@@ -1,18 +1,15 @@
 package com.bitworkshop.litebookscholar.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
 import com.bitworkshop.litebookscholar.R;
-import com.bitworkshop.litebookscholar.receiver.ConnectivityChangeReceiver;
 import com.bitworkshop.litebookscholar.ui.fragment.BookshelfFragment;
 import com.bitworkshop.litebookscholar.ui.fragment.DiscoveryFragment;
 import com.bitworkshop.litebookscholar.ui.fragment.MineFragment;
@@ -28,8 +25,14 @@ public class MainActivity extends BaseActivity implements OnTabSelectListener {
     FrameLayout fragContent;
     @BindView(R.id.bottom_bar)
     BottomBar bottomBar;
-
     private int currentPosition = 0;
+    private boolean isUpdate = false;
+
+    public static void startActiviyForResult(Context context, boolean updateInfo) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("update", updateInfo);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,12 @@ public class MainActivity extends BaseActivity implements OnTabSelectListener {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         bottomBar.setOnTabSelectListener(this);
-        bottomBar.selectTabAtPosition(0);
+        bottomBar.selectTabAtPosition(currentPosition);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void controlFragment(int position) {
@@ -91,4 +99,14 @@ public class MainActivity extends BaseActivity implements OnTabSelectListener {
                 break;
         }
     }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        System.out.println(getIntent().getStringExtra("update"));
+        isUpdate = getIntent().getBooleanExtra("update", false);
+    }
+
+
 }

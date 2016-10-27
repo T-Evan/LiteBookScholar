@@ -20,6 +20,7 @@ import com.bitworkshop.litebookscholar.entity.LibraryQueryListItm;
 import com.bitworkshop.litebookscholar.presenter.SearchBooksPresenter;
 import com.bitworkshop.litebookscholar.ui.view.ISearchView;
 import com.bitworkshop.litebookscholar.util.MyToastUtils;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -62,8 +63,13 @@ public class SearchBookActivity extends AppCompatActivity implements ISearchView
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             System.out.println("result" + query);
-            presenter.searchBooks(query, 1);
+            doMysearch(query);
         }
+    }
+
+    private void doMysearch(String query) {
+        recyclerSearchResult.setVisibility(View.GONE);
+        presenter.searchBooks(query, 1);
     }
 
     private void initViewS() {
@@ -137,6 +143,4 @@ public class SearchBookActivity extends AppCompatActivity implements ISearchView
         super.onDestroy();
         presenter.cancel();
     }
-
-
 }

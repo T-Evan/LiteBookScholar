@@ -1,10 +1,10 @@
 package com.bitworkshop.litebookscholar.ui.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -15,8 +15,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bitworkshop.litebookscholar.R;
+import com.bitworkshop.litebookscholar.entity.User;
+import com.bitworkshop.litebookscholar.presenter.MinePresenter;
+import com.bitworkshop.litebookscholar.ui.activity.AboutUsActivity;
 import com.bitworkshop.litebookscholar.ui.activity.EditInfoActivity;
+import com.bitworkshop.litebookscholar.ui.activity.LoginActivity;
+import com.bitworkshop.litebookscholar.ui.activity.SplashActivity;
 import com.bitworkshop.litebookscholar.ui.view.CircleImageView;
+import com.bitworkshop.litebookscholar.ui.view.IMineView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +37,7 @@ import butterknife.OnClick;
  * Created by aidChow on 2016/10/16.
  */
 
-public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickListener {
+public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickListener, IMineView {
     @BindView(R.id.tv_toolbar_title)
     TextView tvToolbarTitle;
     @BindView(R.id.toolbar)
@@ -44,12 +55,18 @@ public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickLis
     @BindView(R.id.card_view_about)
     CardView cardViewAbout;
 
+    private MinePresenter minePresenter;
+
+    private String userAccount;
+    private String password;
+
     public static MineFragment getInstance() {
         return new MineFragment();
     }
 
     public MineFragment() {
     }
+
 
     @Nullable
     @Override
@@ -63,6 +80,8 @@ public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickLis
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initToolbar();
+        minePresenter = new MinePresenter(this);
+
     }
 
     private void initToolbar() {
@@ -87,19 +106,54 @@ public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.card_view_change_user_info:
-                goToActivity(EditInfoActivity.class);
+                EditInfoActivity.startActiviyForResult(getActivity(), userAccount, password);
                 break;
             case R.id.card_view_borrow_rule:
                 break;
             case R.id.card_view_setting:
                 break;
             case R.id.card_view_about:
+                goToActivity(AboutUsActivity.class);
                 break;
         }
     }
 
     private void goToActivity(Class activity) {
         startActivity(new Intent(getActivity(), activity));
+    }
+
+    @Override
+    public void setUserInfo(User user) {
+        userAccount = user.getUser();
+        password = user.getUserPassword();
+        if (user.getUrl() != null && user.getPetname() != null) {
+            System.out.println(userAccount + " " + password);
+            Glide.with(getActivity()).load(user.getUrl())
+                    .placeholder(R.drawable.default_image)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(new SimpleTarget<GlideDrawable>() {
+                        @Override
+                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                            imageUserIcon.setImageDrawable(resource);
+                        }
+                    });
+            tvUserNickname.setText(user.getPetname());
+        } else {
+            tvUserNickname.setText("您还没有设置昵称快去设置吧");
+        }
+    }
+
+    private String getUserAccount() {
+        SharedPreferences sp = getActivity().getSharedPreferences(SplashActivity.IS_LOGIN_FILE_NAME, 0);
+        return sp.getString(LoginActivity.USER_ACCOUNT, "");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (!getUserAccount().equals("")) {
+            minePresenter.setUserInfo(getUserAccount());
+        }
     }
 }
 

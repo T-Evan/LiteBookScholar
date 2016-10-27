@@ -59,18 +59,8 @@ public class SearchModel implements ISerachModel {
             @Override
             public void onResponse(Call<String> call, final Response<String> response) {
                 if (response.isSuccessful()) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            final List<LibraryQueryListItm> libraryQueryListItms = parseHtml(response.body());
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    listner.Seccess(libraryQueryListItms);
-                                }
-                            });
-                        }
-                    }).start();
+                    List<LibraryQueryListItm> libraryQueryListItms = parseHtml(response.body());
+                    listner.Seccess(libraryQueryListItms);
                 } else if (call.isCanceled()) {
                     listner.Cancel();
                 } else {
@@ -99,7 +89,6 @@ public class SearchModel implements ISerachModel {
      * @return
      */
     private List<LibraryQueryListItm> parseHtml(String response) {
-        exec = Executors.newCachedThreadPool(new ThreadPoolFactory());
         List<LibraryQueryListItm> libraryQueryListItms = new ArrayList<>();
         Document doc = Jsoup.parse(response);
         Element bookList = doc.getElementById("search_book_list");
@@ -109,12 +98,6 @@ public class SearchModel implements ISerachModel {
                 LibraryQueryListItm libraryQueryListItm = new LibraryQueryListItm();
                 Elements a = e.select("h3 > a");
                 String title = a.text().trim().substring(2).replace(".", "").trim();
-                try {
-                    String image = exec.submit(new GetBookImage(title)).get();
-                    libraryQueryListItm.setImge(image);
-                } catch (InterruptedException | ExecutionException e1) {
-                    libraryQueryListItm.setImge(null);
-                }
                 System.out.println("标题: " + title);
                 libraryQueryListItm.setBookTitle(title);
                 System.out.println("详情url: " + "http://coin.lib.scuec.edu.cn/opac/" + a.attr("href"));
@@ -138,7 +121,6 @@ public class SearchModel implements ISerachModel {
                 }
                 libraryQueryListItms.add(libraryQueryListItm);
             }
-            exec.shutdown();
         }
 
         return libraryQueryListItms;

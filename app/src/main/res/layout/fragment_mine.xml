@@ -79,7 +79,7 @@
                     android:layout_centerVertical="true"
                     android:layout_margin="20dp"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@drawable/ic_borrow_rule"
+                    android:drawableStart="@drawable/icon_rules"
                     android:gravity="center"
                     android:text="@string/borrow_tips"
                     android:textColor="@android:color/black" />
@@ -136,7 +136,7 @@
                     android:layout_centerVertical="true"
                     android:layout_margin="20dp"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@drawable/ic_group"
+                    android:drawableStart="@drawable/ic_group_white_24dp"
                     android:gravity="center"
                     android:text="@string/about_us"
                     android:textColor="@android:color/black" />

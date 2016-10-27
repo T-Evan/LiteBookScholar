@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     ProgressBar progressBar;
     private LogingPresenter logingPresenter;
     private ProgressDialog progressDialog;
+    public static final String USER_ACCOUNT = "user_account";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +59,13 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     public void LoginSuccess(User user) {
         System.out.println(user.getMessage());
         if (user.getMessage().equals("登录成功，请填写更多信息")) {
-            startActivity(new Intent(this, EditInfoActivity.class));
+            EditInfoActivity.startActiviyForResult(this, user.getUser(), user.getUserPassword());
         } else {
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(i);
+            MainActivity.startActiviyForResult(LoginActivity.this, false);
         }
         SharedPreferences sp = getSharedPreferences(SplashActivity.IS_LOGIN_FILE_NAME, 0);
         SharedPreferences.Editor editor = sp.edit();
+        editor.putString(USER_ACCOUNT, user.getUser());
         editor.putBoolean(SplashActivity.IS_LOGIN_KEY, true);
         editor.apply();
         for (AppCompatActivity a : SplashActivity.activities) {

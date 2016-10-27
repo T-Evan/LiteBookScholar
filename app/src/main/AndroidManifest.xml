@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
@@ -21,15 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--主activity-->
+        <!-- 主activity -->
         <activity
             android:name=".ui.activity.MainActivity"
-            android:launchMode="singleTop">
-
-        </activity>
+            android:launchMode="singleTask" />
 
         <receiver android:name=".receiver.ConnectivityChangeReceiver" />
-        <!--登录activity-->
+        <!-- 登录activity -->
         <activity
             android:name=".ui.activity.LoginActivity"
             android:parentActivityName=".ui.activity.SplashActivity">
@@ -37,7 +36,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activity.SplashActivity" />
         </activity>
-        <!--搜索activity-->
+        <!-- 搜索activity -->
         <activity
             android:name=".ui.activity.SearchBookActivity"
             android:launchMode="singleTop"
@@ -53,7 +52,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activity.MainActivity" />
         </activity>
-        <!--编辑信息activity-->
+        <!-- 编辑信息activity -->
         <activity
             android:name=".ui.activity.EditInfoActivity"
             android:parentActivityName=".ui.activity.MainActivity">
@@ -75,6 +74,18 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <meta-data
+            android:name="com.bitworkshop.litebookscholar.model.LGlideModule"
+            android:value="GlideModule" />
+
+        <activity
+            android:name=".ui.activity.AboutUsActivity"
+            android:parentActivityName=".ui.activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
