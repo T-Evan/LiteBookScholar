@@ -85,5 +85,24 @@ public class DoubanBookList {
         public void setTitle(String title) {
             this.title = title;
         }
+
+        @Override
+        public String toString() {
+            return "BooksBean{" +
+                    "image='" + image + '\'' +
+                    ", id='" + id + '\'' +
+                    ", title='" + title + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "DoubanBookList{" +
+                "count=" + count +
+                ", start=" + start +
+                ", total=" + total +
+                ", books=" + books +
+                '}';
     }
 }

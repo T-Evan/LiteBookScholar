@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_btu_login"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/appbackground">
 
     <include
         android:id="@+id/toolbar_layout"
@@ -15,34 +16,26 @@
         <EditText
             android:id="@+id/edit_username"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="18dp"
             android:layout_marginStart="25dp"
             android:layout_marginTop="100dp"
-            android:background="@null"
+            android:background="@drawable/edit_shape"
             android:drawablePadding="20dp"
             android:drawableStart="@drawable/ic_image_user_name"
             android:gravity="center_vertical"
             android:hint="@string/edit_tip_name"
             android:textSize="16sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@+id/edit_username"
-            android:layout_marginEnd="25dp"
-            android:layout_marginStart="25dp"
-            android:background="@color/colorAccent" />
-
         <EditText
             android:id="@+id/edit_lib_account"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="40dp"
             android:layout_below="@+id/edit_username"
             android:layout_marginEnd="18dp"
             android:layout_marginStart="25dp"
             android:layout_marginTop="30dp"
-            android:background="@null"
+            android:background="@drawable/edit_shape"
             android:drawablePadding="20dp"
             android:drawableStart="@drawable/ic_image_user_name"
             android:gravity="center_vertical"
@@ -50,23 +43,15 @@
             android:inputType="number"
             android:textSize="16sp" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@+id/edit_lib_account"
-            android:layout_marginEnd="25dp"
-            android:layout_marginStart="25dp"
-            android:background="@color/blue" />
-
         <EditText
             android:id="@+id/edit_password"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="40dp"
             android:layout_below="@+id/edit_lib_account"
             android:layout_marginEnd="18dp"
             android:layout_marginStart="25dp"
             android:layout_marginTop="30dp"
-            android:background="@null"
+            android:background="@drawable/edit_shape"
             android:drawablePadding="20dp"
             android:drawableStart="@drawable/ic_image_user_name"
             android:gravity="center_vertical"
@@ -74,13 +59,6 @@
             android:inputType="textPassword"
             android:textSize="16sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@+id/edit_password"
-            android:layout_marginEnd="25dp"
-            android:layout_marginStart="25dp"
-            android:background="@color/colorAccent" />
 
         <Button
             android:id="@+id/btu_login"

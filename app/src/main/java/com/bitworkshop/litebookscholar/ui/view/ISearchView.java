@@ -17,5 +17,9 @@ public interface ISearchView {
 
     void showFialed(String msg);
 
+    void setPages(int pages);
+
+    void addMore(List<LibraryQueryListItm> libraryQueryListItms);
+
     String getQueryTitle();
 }

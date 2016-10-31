@@ -40,8 +40,8 @@
 
                     <ImageView
                         android:id="@+id/imageView"
-                        android:layout_width="200dp"
-                        android:layout_height="300dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:src="@drawable/discover_bg_image" />

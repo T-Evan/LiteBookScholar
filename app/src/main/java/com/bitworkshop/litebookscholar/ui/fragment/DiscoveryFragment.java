@@ -26,6 +26,7 @@ import com.bitworkshop.litebookscholar.ui.view.IDiscoverView;
 import com.bitworkshop.litebookscholar.util.MyToastUtils;
 import com.bitworkshop.litebookscholar.util.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -53,6 +54,8 @@ public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemCli
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
     private DiscoveryPresenter presenter;
+    private OneAdapter adapter;
+    private List<One.DataBean> oDataBeen = new ArrayList<>();
 
     public static DiscoveryFragment getInstance() {
         return new DiscoveryFragment();
@@ -74,6 +77,8 @@ public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemCli
         super.onViewCreated(view, savedInstanceState);
         initToolbar();
         presenter = new DiscoveryPresenter(this);
+        adapter = new OneAdapter(getContext(), oDataBeen);
+        recyclerVol.setAdapter(adapter);
         swipeRefresh.setColorSchemeColors(Color.YELLOW, Color.RED, Color.BLUE);
         swipeRefresh.setDistanceToTriggerSync(300);
         swipeRefresh.setOnRefreshListener(this);
@@ -133,16 +138,13 @@ public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemCli
     @Override
     public void hideRefresh() {
         swipeRefresh.setRefreshing(false);
-
     }
 
     @Override
     public void setOne(List<One.DataBean> ones) {
-        OneAdapter adapter = new OneAdapter(getContext(), ones);
-        recyclerVol.setAdapter(adapter);
-        for (One.DataBean dataBean : ones) {
-            System.out.println(dataBean.toString());
-        }
+        int currentSize = adapter.getItemCount();
+        oDataBeen.addAll(ones);
+        adapter.notifyItemRangeInserted(currentSize, ones.size());
     }
 
     @Override
@@ -159,6 +161,9 @@ public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemCli
     public void onRefresh() {
         if (Utils.isOnline(getContext())) {
             presenter.getOne();
+            if (adapter != null) {
+                adapter.clear();
+            }
         } else {
             MyToastUtils.showToast(getContext(), "哎呀,网络有问题");
         }

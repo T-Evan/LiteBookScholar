@@ -53,18 +53,13 @@
                 android:value=".ui.activity.MainActivity" />
         </activity>
         <!-- 编辑信息activity -->
-        <activity
-            android:name=".ui.activity.EditInfoActivity"
-            android:parentActivityName=".ui.activity.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.MainActivity" />
-        </activity>
+        <activity android:name=".ui.activity.EditInfoActivity" />
+        <!-- 裁剪activity -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
+        <!-- provider 用于拍照后路径存储 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.bitworkshop.litebookscholar.fileprovider"
@@ -78,7 +73,7 @@
         <meta-data
             android:name="com.bitworkshop.litebookscholar.model.LGlideModule"
             android:value="GlideModule" />
-
+        <!-- 关于activity -->
         <activity
             android:name=".ui.activity.AboutUsActivity"
             android:parentActivityName=".ui.activity.MainActivity">
@@ -86,6 +81,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activity.MainActivity" />
         </activity>
+        <activity
+            android:name=".ui.activity.SettingsActivity"
+            android:parentActivityName=".ui.activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.MainActivity" />
+        </activity>
+        <activity android:name=".ui.activity.BookInfoActivity"></activity>
     </application>
 
 </manifest>

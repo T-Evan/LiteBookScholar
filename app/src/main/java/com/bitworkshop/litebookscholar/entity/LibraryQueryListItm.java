@@ -5,7 +5,7 @@ package com.bitworkshop.litebookscholar.entity;
  */
 public class LibraryQueryListItm {
     private String bookTitle;//标题
-    private String bookInfoUrl;//详情URl
+    private String bookInfoId;//详情URl
     private String indexBookNum;//索数号
     private int holdingBooks;//馆藏复本
     private int canBorrowBooks;//可借复本
@@ -21,12 +21,12 @@ public class LibraryQueryListItm {
         this.bookTitle = bookTitle;
     }
 
-    public String getBookInfoUrl() {
-        return bookInfoUrl;
+    public String getBookInfoId() {
+        return bookInfoId;
     }
 
-    public void setBookInfoUrl(String bookInfoUrl) {
-        this.bookInfoUrl = bookInfoUrl;
+    public void setBookInfoId(String bookInfoId) {
+        this.bookInfoId = bookInfoId;
     }
 
     public String getIndexBookNum() {

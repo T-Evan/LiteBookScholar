@@ -1,5 +1,8 @@
 package com.bitworkshop.litebookscholar;
 
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+
 import org.litepal.LitePalApplication;
 
 /**
@@ -7,9 +10,16 @@ import org.litepal.LitePalApplication;
  */
 
 public class App extends LitePalApplication {
+    private static Context context;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        context = getApplicationContext();
         LitePalApplication.initialize(this);
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }

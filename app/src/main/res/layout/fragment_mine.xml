@@ -20,7 +20,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground">
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardMaxElevation="0dp"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="false">
 
             <RelativeLayout
                 android:id="@+id/relative_change_user_info"
@@ -32,7 +35,6 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_margin="10dp"
-                    android:src="@color/colorAccent"
                     app:civ_border_color="@android:color/transparent"
                     app:civ_border_overlay="true"
                     app:civ_border_width="1dp" />
@@ -44,7 +46,6 @@
                     android:layout_alignTop="@+id/image_user_icon"
                     android:layout_marginTop="10dp"
                     android:layout_toEndOf="@+id/image_user_icon"
-                    android:text="橡皮"
                     android:textColor="@android:color/black" />
 
                 <TextView
@@ -65,7 +66,9 @@
             android:layout_below="@+id/card_view_change_user_info"
             android:layout_marginTop="10dp"
             android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground">
+            app:cardElevation="0dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardUseCompatPadding="false">
 
             <RelativeLayout
                 android:id="@+id/relative_borrow_rule"
@@ -93,7 +96,9 @@
             android:layout_below="@+id/card_view_borrow_rule"
             android:layout_marginTop="10dp"
             android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground">
+            app:cardElevation="0dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardUseCompatPadding="false">
 
 
             <RelativeLayout
@@ -121,7 +126,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/card_view_setting"
             android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground">
+            app:cardElevation="0dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardUseCompatPadding="false">
 
 
             <RelativeLayout

@@ -18,4 +18,9 @@
     <string name="settings">设置</string>
     <string name="borrow_tips">借阅规则</string>
     <string name="edit_change_nickname_tips">给自己起个好听的笔名吧</string>
+    <string name="messages_tips">消息提醒</string>
+    <string name="clean_cache">清除缓存</string>
+    <string name="check_update">检查更新</string>
+    <string name="feedback">意见反馈</string>
+    <string name="logout">退出登录</string>
 </resources>

@@ -15,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +43,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 编辑个人信息activity
+ * 用于个人信息的修改，如头像的上传，昵称的修改
+ */
 public class EditInfoActivity extends BaseActivity implements ChooseDialogFragment.OnDialogItemClickListener, IEditUserInfoView {
 
     @BindView(R.id.tv_toolbar_title)
@@ -81,17 +86,10 @@ public class EditInfoActivity extends BaseActivity implements ChooseDialogFragme
         Intent intent = getIntent();
         userAccount = intent.getStringExtra("useraccount");
         password = intent.getStringExtra("password");
-        initToolbar();
+        setupToolbar(toolbar, "编辑信息", true);
         editInfoPresenter = new EditInfoPresenter(this);
     }
 
-    private void initToolbar() {
-        toolbar.setTitle("编辑信息");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-    }
 
     @OnClick({R.id.image_choose_image, R.id.btu_finish})
     public void onClick(View view) {
@@ -107,6 +105,9 @@ public class EditInfoActivity extends BaseActivity implements ChooseDialogFragme
         }
     }
 
+    /**
+     * 开始更新信息
+     */
     private void updateUserInfo() {
         System.out.println(getUserNickname() + "photoUri" + postData);
         if (Utils.isOnline(this)) {
@@ -165,7 +166,7 @@ public class EditInfoActivity extends BaseActivity implements ChooseDialogFragme
     /**
      * 裁剪图片
      *
-     * @param uri
+     * @param uri 文件的provider路径
      */
     private void cropPick(Uri uri) {
         if (uri != null) {
@@ -203,6 +204,7 @@ public class EditInfoActivity extends BaseActivity implements ChooseDialogFragme
 
     /**
      * 拍照
+     * 调用系统相机
      */
     private void dispatchTakePictureIntent() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
@@ -230,7 +232,7 @@ public class EditInfoActivity extends BaseActivity implements ChooseDialogFragme
     }
 
     /**
-     * 从相册
+     * 从相册获取图片
      */
     private void dispatchFromPhotoIntent() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
@@ -271,8 +273,12 @@ public class EditInfoActivity extends BaseActivity implements ChooseDialogFragme
         return Utils.editextUtiils(editChangeNickname);
     }
 
+    /**
+     * 上传成功后调用
+     */
     @Override
     public void seccess() {
+        MainActivity.startActiviyForResult(this, true);
         finish();
     }
 
@@ -291,9 +297,27 @@ public class EditInfoActivity extends BaseActivity implements ChooseDialogFragme
         MyToastUtils.showToast(this, errorMsg);
     }
 
+    /**
+     * 上传图片到七牛云成功后调用
+     *
+     * @param imageUrl
+     */
     @Override
     public void setImageUrl(String imageUrl) {
         editInfoPresenter.updateUserInfo(userAccount, password, imageUrl, nickName);
     }
 
+    /**
+     * 监听toolbar 的返回键
+     *
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

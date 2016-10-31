@@ -19,6 +19,10 @@ import com.roughike.bottombar.OnTabSelectListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 主activity
+ * 用于主界面的内容切换
+ */
 public class MainActivity extends BaseActivity implements OnTabSelectListener {
 
     @BindView(R.id.frag_content)
@@ -100,11 +104,15 @@ public class MainActivity extends BaseActivity implements OnTabSelectListener {
         }
     }
 
+    /**
+     * 因为是singletask模式所以调用此方法接收传入的值
+     *
+     * @param intent
+     */
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        System.out.println(getIntent().getStringExtra("update"));
         isUpdate = getIntent().getBooleanExtra("update", false);
     }
 

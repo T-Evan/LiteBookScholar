@@ -20,6 +20,7 @@ import com.bitworkshop.litebookscholar.presenter.MinePresenter;
 import com.bitworkshop.litebookscholar.ui.activity.AboutUsActivity;
 import com.bitworkshop.litebookscholar.ui.activity.EditInfoActivity;
 import com.bitworkshop.litebookscholar.ui.activity.LoginActivity;
+import com.bitworkshop.litebookscholar.ui.activity.SettingsActivity;
 import com.bitworkshop.litebookscholar.ui.activity.SplashActivity;
 import com.bitworkshop.litebookscholar.ui.view.CircleImageView;
 import com.bitworkshop.litebookscholar.ui.view.IMineView;
@@ -95,6 +96,7 @@ public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickLis
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_message:
+                // TODO: 2016/10/27 消息待做 
                 Toast.makeText(getActivity(), "消息", Toast.LENGTH_SHORT).show();
                 return true;
             default:
@@ -109,8 +111,10 @@ public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickLis
                 EditInfoActivity.startActiviyForResult(getActivity(), userAccount, password);
                 break;
             case R.id.card_view_borrow_rule:
+                // TODO: 2016/10/27 借阅规则待做 
                 break;
             case R.id.card_view_setting:
+                goToActivity(SettingsActivity.class);
                 break;
             case R.id.card_view_about:
                 goToActivity(AboutUsActivity.class);
@@ -122,6 +126,11 @@ public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickLis
         startActivity(new Intent(getActivity(), activity));
     }
 
+    /**
+     * 设置用户信息
+     *
+     * @param user
+     */
     @Override
     public void setUserInfo(User user) {
         userAccount = user.getUser();
@@ -143,6 +152,12 @@ public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickLis
         }
     }
 
+    /**
+     * 从sharedPreferencs文件中获取账户信息
+     * 作为关键字，去数据库中执行查询
+     *
+     * @return
+     */
     private String getUserAccount() {
         SharedPreferences sp = getActivity().getSharedPreferences(SplashActivity.IS_LOGIN_FILE_NAME, 0);
         return sp.getString(LoginActivity.USER_ACCOUNT, "");

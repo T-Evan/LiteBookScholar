@@ -9,7 +9,9 @@ import java.util.List;
  */
 
 public interface ISerachModel {
-    void doSearchBooks(String title, int pages, OnRequestListner<List<LibraryQueryListItm>> listner);
+    void doSearchBooks(String title, int pages, OnSearchRequestListner<List<LibraryQueryListItm>> listner);
 
     void cancelSearch();
+
+    void addMore(String title,int pages,OnRequestListner<List<LibraryQueryListItm>> listner);
 }

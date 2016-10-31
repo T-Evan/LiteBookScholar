@@ -2,8 +2,6 @@ package com.bitworkshop.litebookscholar.model;
 
 import android.os.Handler;
 
-import com.bitworkshop.litebookscholar.asynctask.GetBookImage;
-import com.bitworkshop.litebookscholar.asynctask.ThreadPoolFactory;
 import com.bitworkshop.litebookscholar.entity.LibraryQueryListItm;
 import com.bitworkshop.litebookscholar.retrofit.GetBookService;
 import com.bitworkshop.litebookscholar.retrofit.StringConverterFactory;
@@ -18,9 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,8 +44,8 @@ public class SearchModel implements ISerachModel {
 
 
     @Override
-    public void doSearchBooks(String title, int pages, final OnRequestListner<List<LibraryQueryListItm>> listner) {
-        Map<String, String> map = new HashMap<>();
+    public void doSearchBooks(String title, int pages, final OnSearchRequestListner<List<LibraryQueryListItm>> listner) {
+        final Map<String, String> map = new HashMap<>();
         map.put("strSearchType", "title");
         map.put("strText", title);
         map.put("displaypg", "10");
@@ -59,8 +55,8 @@ public class SearchModel implements ISerachModel {
             @Override
             public void onResponse(Call<String> call, final Response<String> response) {
                 if (response.isSuccessful()) {
-                    List<LibraryQueryListItm> libraryQueryListItms = parseHtml(response.body());
-                    listner.Seccess(libraryQueryListItms);
+                    listner.SetPages(getPages(response.body()));
+                    listner.Seccess(parseHtml(response.body()));
                 } else if (call.isCanceled()) {
                     listner.Cancel();
                 } else {
@@ -82,6 +78,33 @@ public class SearchModel implements ISerachModel {
         }
     }
 
+    @Override
+    public void addMore(String title, int pages, final OnRequestListner<List<LibraryQueryListItm>> listner) {
+        final Map<String, String> map = new HashMap<>();
+        map.put("strSearchType", "title");
+        map.put("strText", title);
+        map.put("displaypg", "10");
+        map.put("page", String.valueOf(pages));
+        call = getBookServise.setSearch(map);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, final Response<String> response) {
+                if (response.isSuccessful()) {
+                    listner.Seccess(parseHtml(response.body()));
+                } else if (call.isCanceled()) {
+                    listner.Cancel();
+                } else {
+                    listner.Fiald(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                listner.Fiald(t.getMessage());
+            }
+        });
+    }
+
     /**
      * 解析资源匹配
      *
@@ -97,11 +120,11 @@ public class SearchModel implements ISerachModel {
             for (Element e : es) {
                 LibraryQueryListItm libraryQueryListItm = new LibraryQueryListItm();
                 Elements a = e.select("h3 > a");
-                String title = a.text().trim().substring(2).replace(".", "").trim();
+                String title = a.text().trim().substring(2).replace(".", "").replace(":", "").trim();
                 System.out.println("标题: " + title);
                 libraryQueryListItm.setBookTitle(title);
                 System.out.println("详情url: " + "http://coin.lib.scuec.edu.cn/opac/" + a.attr("href"));
-                libraryQueryListItm.setBookInfoUrl("http://coin.lib.scuec.edu.cn/opac/" + a.attr("href"));
+                libraryQueryListItm.setBookInfoId(a.attr("href").replace("item.php?marc_no=", ""));
                 String index = e.select("h3").first().ownText();
                 System.out.println("索书号: " + index);
                 libraryQueryListItm.setIndexBookNum(index);
@@ -121,10 +144,25 @@ public class SearchModel implements ISerachModel {
                 }
                 libraryQueryListItms.add(libraryQueryListItm);
             }
+
         }
 
         return libraryQueryListItms;
     }
 
+    private int getPages(String response) {
+        int pages = 1;
+        Document doc = Jsoup.parse(response);
+        Elements nums = doc.select("span.pagination");
+        for (Element e : nums) {
+            try {
+                pages = Integer.parseInt(e.getElementsByAttribute("color").last().text());
+                System.out.println(pages);
+            } catch (NullPointerException ee) {
+                pages = 1;
+            }
+        }
+        return pages;
+    }
 }
 

@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+
+import com.bitworkshop.litebookscholar.util.ActivityCollectior;
 
 /**
  * Created by AidChow on 2016/10/17.
@@ -21,6 +24,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityCollectior.addActivity(this);
     }
 
     @Override
@@ -66,6 +70,20 @@ public class BaseActivity extends AppCompatActivity {
         builder.setMessage(message);
         builder.setPositiveButton(positiveText, onPositiveButtonClickListener);
         builder.setNeutralButton(negativeText, onNegativeButtonClickListener);
+        builder.create();
         mAlertDialog = builder.show();
+    }
+
+    protected void setupToolbar(Toolbar toolbar, String title, boolean asHomeUp) {
+        toolbar.setTitle(title);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(asHomeUp);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(asHomeUp);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollectior.removeActivity(this);
     }
 }

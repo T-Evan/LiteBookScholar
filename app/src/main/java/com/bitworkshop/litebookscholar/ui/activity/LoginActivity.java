@@ -1,7 +1,6 @@
 package com.bitworkshop.litebookscholar.ui.activity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,13 +14,18 @@ import com.bitworkshop.litebookscholar.entity.User;
 import com.bitworkshop.litebookscholar.presenter.LogingPresenter;
 import com.bitworkshop.litebookscholar.ui.view.ILoginView;
 import com.bitworkshop.litebookscholar.util.MyToastUtils;
+import com.bitworkshop.litebookscholar.util.ProgressDialogUtil;
 import com.bitworkshop.litebookscholar.util.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends AppCompatActivity implements ILoginView {
+/**
+ * 登录类
+ * 用于登录到图书馆，若是第一次登录跳转致信息设置界面
+ */
+public class LoginActivity extends BaseActivity implements ILoginView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -44,16 +48,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        initToolBar();
+        setupToolbar(toolbar, "登录", true);
         logingPresenter = new LogingPresenter(this);
     }
 
-    private void initToolBar() {
-        setSupportActionBar(toolbar);
-        setTitle("登录");
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
 
     @Override
     public void LoginSuccess(User user) {
@@ -96,20 +94,13 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     @Override
     public void showLoading() {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("登录中...");
-            progressDialog.show();
-        }
+        ProgressDialogUtil.showProgressBar(this, "登录中...");
     }
 
 
     @Override
     public void hideLoading() {
-        if (progressDialog != null) {
-            progressDialog.cancel();
-            progressDialog = null;
-        }
+        ProgressDialogUtil.hideProgressDiaglog();
     }
 
     @Override

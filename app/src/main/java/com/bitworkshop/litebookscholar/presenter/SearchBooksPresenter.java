@@ -3,6 +3,7 @@ package com.bitworkshop.litebookscholar.presenter;
 import com.bitworkshop.litebookscholar.entity.LibraryQueryListItm;
 import com.bitworkshop.litebookscholar.model.ISerachModel;
 import com.bitworkshop.litebookscholar.model.OnRequestListner;
+import com.bitworkshop.litebookscholar.model.OnSearchRequestListner;
 import com.bitworkshop.litebookscholar.model.SearchModel;
 import com.bitworkshop.litebookscholar.ui.view.ISearchView;
 
@@ -23,7 +24,8 @@ public class SearchBooksPresenter {
 
     public void searchBooks(String tilte, int pages) {
         iSearchView.showLoading();
-        iSerachModel.doSearchBooks(tilte, pages, new OnRequestListner<List<LibraryQueryListItm>>() {
+        iSerachModel.doSearchBooks(tilte, pages, new OnSearchRequestListner<List<LibraryQueryListItm>>() {
+
             @Override
             public void Seccess(List<LibraryQueryListItm> libraryQueryListItms) {
                 iSearchView.setBookList(libraryQueryListItms);
@@ -40,11 +42,35 @@ public class SearchBooksPresenter {
             public void Cancel() {
                 iSearchView.hideLoading();
             }
+
+            @Override
+            public void SetPages(int pages) {
+                iSearchView.setPages(pages);
+            }
         });
     }
 
     public void cancel() {
         iSerachModel.cancelSearch();
         iSearchView.hideLoading();
+    }
+
+    public void addMore(String title, int pages) {
+        iSerachModel.addMore(title, pages, new OnRequestListner<List<LibraryQueryListItm>>() {
+            @Override
+            public void Seccess(List<LibraryQueryListItm> libraryQueryListItms) {
+                iSearchView.addMore(libraryQueryListItms);
+            }
+
+            @Override
+            public void Fiald(String msg) {
+                iSearchView.showFialed(msg);
+            }
+
+            @Override
+            public void Cancel() {
+
+            }
+        });
     }
 }

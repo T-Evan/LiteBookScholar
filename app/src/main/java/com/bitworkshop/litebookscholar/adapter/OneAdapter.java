@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bitworkshop.litebookscholar.R;
 import com.bitworkshop.litebookscholar.entity.One;
+import com.bitworkshop.litebookscholar.util.Utils;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -47,7 +48,6 @@ public class OneAdapter extends RecyclerView.Adapter<OneAdapter.ViewHolder> {
         One.DataBean dataBean = onDataBeens.get(position);
         String vol = dataBean.getVol();
         Glide.with(mContext).load(dataBean.getUrl())
-                .placeholder(R.drawable.default_image)
                 .centerCrop()
                 .into(holder.imageOneWords);
         if (vol.length() == 1) {
@@ -57,7 +57,7 @@ public class OneAdapter extends RecyclerView.Adapter<OneAdapter.ViewHolder> {
             vol = "0" + vol;
         }
         holder.tvVol.setText("VOL." + vol);
-        holder.tvAuthor.setText("@" + dataBean.getAuthor() + " 作品");
+        holder.tvAuthor.setText(dataBean.getAuthor() +" |");
         holder.tvDescription.setText(onDataBeens.get(position).getSentence());
     }
 
@@ -85,5 +85,15 @@ public class OneAdapter extends RecyclerView.Adapter<OneAdapter.ViewHolder> {
             ButterKnife.bind(this, itemView);
 
         }
+    }
+
+    public void clear() {
+        onDataBeens.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<One.DataBean> onDataBeens) {
+        onDataBeens.addAll(onDataBeens);
+        notifyDataSetChanged();
     }
 }
