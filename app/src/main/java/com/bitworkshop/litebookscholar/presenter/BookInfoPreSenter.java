@@ -63,11 +63,15 @@ public class BookInfoPresenter {
         });
     }
 
-    public List<BookInfo> getBookInfoFromDatabase(String isbn) {
+    public BookInfo getBookInfoFromDatabase(String isbn) {
         return iBookInfoModel.getBookInfoFromDatabase(isbn);
     }
 
-    public void addBookToShelf(BookInfo bookInfo) {
-        iBookInfoModel.addToBookShelf(bookInfo);
+    public boolean addBookToShelf(BookInfo bookInfo, String userAccount) {
+        return iBookInfoModel.addToBookShelf(bookInfo, userAccount);
+    }
+
+    public boolean deleteBookInfo(String booinfoId) {
+        return iBookInfoModel.deletBookInfoFromDatabase(booinfoId);
     }
 }

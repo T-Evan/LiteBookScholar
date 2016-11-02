@@ -1,6 +1,7 @@
 package com.bitworkshop.litebookscholar.ui.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,14 +15,20 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bitworkshop.litebookscholar.R;
+import com.bitworkshop.litebookscholar.adapter.BorrowBookListAdapter;
 import com.bitworkshop.litebookscholar.adapter.OneAdapter;
+import com.bitworkshop.litebookscholar.entity.BookInfo;
 import com.bitworkshop.litebookscholar.entity.One;
 import com.bitworkshop.litebookscholar.presenter.DiscoveryPresenter;
+import com.bitworkshop.litebookscholar.ui.activity.BookInfoActivity;
+import com.bitworkshop.litebookscholar.ui.activity.LoginActivity;
 import com.bitworkshop.litebookscholar.ui.activity.SearchBookActivity;
+import com.bitworkshop.litebookscholar.ui.activity.SplashActivity;
 import com.bitworkshop.litebookscholar.ui.view.IDiscoverView;
 import com.bitworkshop.litebookscholar.util.MyToastUtils;
 import com.bitworkshop.litebookscholar.util.Utils;
@@ -38,7 +45,7 @@ import butterknife.OnClick;
  * Created by AidChow on 2016/10/16.
  */
 
-public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemClickListener, IDiscoverView, SwipeRefreshLayout.OnRefreshListener {
+public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemClickListener, IDiscoverView, SwipeRefreshLayout.OnRefreshListener, BorrowBookListAdapter.OnItemClickListener {
     @BindView(R.id.tv_toolbar_title)
     TextView tvToolbarTitle;
     @BindView(R.id.toolbar)
@@ -49,13 +56,21 @@ public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemCli
     CardView cardviewNoBorrowBookLayout;
     @BindView(R.id.recycler_to_borrow_list)
     RecyclerView recyclerToBorrowList;
-    @BindView(R.id.cardview_to_borrow_book_list_layout)
-    CardView cardviewToBorrowBookListLayout;
+    @BindView(R.id.relative_to_borrow_book_list_root)
+    RelativeLayout relativeToBorrowBookListLayout;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
+    @BindView(R.id.tv_clear_book_list)
+    TextView tvClearBookList;
+    @BindView(R.id.relative_add_continue_layout)
+    RelativeLayout relativeAddContinueLayout;
     private DiscoveryPresenter presenter;
     private OneAdapter adapter;
     private List<One.DataBean> oDataBeen = new ArrayList<>();
+
+    private BorrowBookListAdapter borrowBookListAdapter;
+
+    private List<BookInfo> bookInfos = new ArrayList<>();
 
     public static DiscoveryFragment getInstance() {
         return new DiscoveryFragment();
@@ -79,6 +94,9 @@ public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemCli
         presenter = new DiscoveryPresenter(this);
         adapter = new OneAdapter(getContext(), oDataBeen);
         recyclerVol.setAdapter(adapter);
+        borrowBookListAdapter = new BorrowBookListAdapter(getContext(), bookInfos);
+        recyclerToBorrowList.setAdapter(borrowBookListAdapter);
+        borrowBookListAdapter.setOnItemClickListner(this);
         swipeRefresh.setColorSchemeColors(Color.YELLOW, Color.RED, Color.BLUE);
         swipeRefresh.setDistanceToTriggerSync(300);
         swipeRefresh.setOnRefreshListener(this);
@@ -120,12 +138,21 @@ public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemCli
         }
     }
 
-    @OnClick({R.id.cardview_no_borrow_book_layout, R.id.cardview_to_borrow_book_list_layout})
+    @OnClick({R.id.cardview_no_borrow_book_layout, R.id.tv_clear_book_list, R.id.relative_add_continue_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.cardview_no_borrow_book_layout:
+                startActivity(new Intent(getActivity(), SearchBookActivity.class));
                 break;
-            case R.id.cardview_to_borrow_book_list_layout:
+            case R.id.relative_add_continue_layout:
+                startActivity(new Intent(getActivity(), SearchBookActivity.class));
+                break;
+            case R.id.tv_clear_book_list:
+                presenter.deleteAll(getUserAccount());
+                bookInfos.clear();
+                borrowBookListAdapter.notifyDataSetChanged();
+                cardviewNoBorrowBookLayout.setVisibility(View.VISIBLE);
+                relativeToBorrowBookListLayout.setVisibility(View.GONE);
                 break;
         }
     }
@@ -149,7 +176,9 @@ public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemCli
 
     @Override
     public void setToBorrowBook() {
-
+        int currentSize = borrowBookListAdapter.getItemCount();
+        bookInfos.addAll(presenter.loadBookInfos(getUserAccount()));
+        borrowBookListAdapter.notifyItemRangeInserted(currentSize, presenter.loadBookInfos(getUserAccount()).size());
     }
 
     @Override
@@ -168,5 +197,38 @@ public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemCli
             MyToastUtils.showToast(getContext(), "哎呀,网络有问题");
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (presenter.loadBookInfos(getUserAccount()).size() != 0) {
+            cardviewNoBorrowBookLayout.setVisibility(View.GONE);
+            relativeToBorrowBookListLayout.setVisibility(View.VISIBLE);
+            bookInfos.clear();
+            borrowBookListAdapter.notifyDataSetChanged();
+            setToBorrowBook();
+        } else {
+            cardviewNoBorrowBookLayout.setVisibility(View.VISIBLE);
+            relativeToBorrowBookListLayout.setVisibility(View.GONE);
+        }
+    }
+
+
+    @Override
+    public void onItemClick(View itemview, int position) {
+        BookInfoActivity.startActivity(getContext(), bookInfos.get(position).getBookInfoId());
+    }
+
+    /**
+     * 从sharedPreferencs文件中获取账户信息
+     * 作为关键字，去数据库中执行查询
+     *
+     * @return
+     */
+    private String getUserAccount() {
+        SharedPreferences sp = getActivity().getSharedPreferences(SplashActivity.IS_LOGIN_FILE_NAME, 0);
+        return sp.getString(LoginActivity.USER_ACCOUNT, "");
+    }
+
 }
 

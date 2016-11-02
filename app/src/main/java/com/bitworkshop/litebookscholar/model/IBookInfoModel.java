@@ -14,9 +14,13 @@ public interface IBookInfoModel {
 
     void getBookInfoFromDouban(String isbn, OnRequestListner<DoubanBookInfo> listner);
 
-    void addToBookShelf(BookInfo bookInfo);
+    boolean addToBookShelf(BookInfo bookInfo, String userAccount);
 
-    List<BookInfo> getBookInfoFromDatabase(String isbn);
+    boolean bookIsSave(String isbn);
+
+    BookInfo getBookInfoFromDatabase(String isbn);
+
+    boolean deletBookInfoFromDatabase(String isbn);
 
     void Cancel();
 }

@@ -1,7 +1,11 @@
 package com.bitworkshop.litebookscholar.model;
 
+import android.database.Cursor;
+
+import com.bitworkshop.litebookscholar.entity.BookHoldingInfo;
 import com.bitworkshop.litebookscholar.entity.BookInfo;
 import com.bitworkshop.litebookscholar.entity.DoubanBookInfo;
+import com.bitworkshop.litebookscholar.entity.User;
 import com.bitworkshop.litebookscholar.retrofit.GetBookService;
 import com.bitworkshop.litebookscholar.retrofit.StringConverterFactory;
 
@@ -9,10 +13,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.litepal.LitePalApplication;
 import org.litepal.crud.DataSupport;
+import org.litepal.util.Const;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,6 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class BookInfoModel implements IBookInfoModel {
+    private boolean isSave = false;
 
     @Override
     public void getBookInfo(String bookInfoId, final OnRequestListner<BookInfo> listner) {
@@ -42,7 +50,7 @@ public class BookInfoModel implements IBookInfoModel {
                 if (response.isSuccessful()) {
                     BookInfo bookInfo = parseHtml(response.body());
                     listner.Seccess(bookInfo);
-                    for (BookInfo.HoldingInfo holdingInfo : bookInfo.getHoldingInfos()) {
+                    for (BookHoldingInfo holdingInfo : bookInfo.getHoldingInfos()) {
                         System.out.println(holdingInfo.toString());
                     }
                 } else {
@@ -90,19 +98,58 @@ public class BookInfoModel implements IBookInfoModel {
     }
 
     @Override
-    public void addToBookShelf(BookInfo bookInfo) {
-        bookInfo.save();
+    public boolean addToBookShelf(BookInfo bookInfo, String userAccount) {
+        User users = DataSupport.where("user like ?", userAccount)
+                .findFirst(User.class);
+        List<BookInfo> bookInfos = new ArrayList<>();
+        bookInfos.add(bookInfo);
+        List<BookHoldingInfo> bookHoldingInfos = new ArrayList<>();
+        if (users != null) {
+            DataSupport.markAsDeleted(bookInfos);
+            DataSupport.markAsDeleted(bookInfos.get(0).getHoldingInfos());
+            DataSupport.saveAll(bookInfos.get(0).getHoldingInfos());
+            if (bookInfo.save()) {
+                users.getBookInfos().add(bookInfos.get(0));
+                users.save();
+                System.out.println("book info model save");
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean bookIsSave(String isbn) {
+        return false;
     }
 
     /**
      * 从数据库拿取详情
      *
-     * @param isbn
+     * @param booinfoId
      */
     @Override
-    public List<BookInfo> getBookInfoFromDatabase(String isbn) {
-        List<BookInfo> bookInfos = DataSupport.where(" isbn like ? ", isbn).find(BookInfo.class);
-        return bookInfos;
+    public BookInfo getBookInfoFromDatabase(String booinfoId) {
+        BookInfo bookInfo = DataSupport.where(" bookinfoid like ? ", booinfoId).findFirst(BookInfo.class);
+        if (bookInfo != null) {
+            return bookInfo;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean deletBookInfoFromDatabase(String booinfoId) {
+        List<BookInfo> bookInfo = DataSupport.where(" bookinfoid like ? ", booinfoId).find(BookInfo.class);
+        if (bookInfo != null) {
+            for (BookHoldingInfo holdingInfo : bookInfo.get(0).getBookHoldingInfos(bookInfo.get(0).getId())) {
+                holdingInfo.delete();
+            }
+            bookInfo.get(0).delete();
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -139,21 +186,19 @@ public class BookInfoModel implements IBookInfoModel {
 
         //馆藏信息
         Elements tables = doc.select("tr.whitetext");
-        List<BookInfo.HoldingInfo> holdingInfos = new ArrayList<>();
         for (Element e : tables) {
-            BookInfo.HoldingInfo holdingInfo = new BookInfo.HoldingInfo();
+            BookHoldingInfo holdingInfo = new BookHoldingInfo();
             String location = e.select("[width=25%]").text();
             String indexBookNum = e.select("[width=10%]").text().replace("-", "").replace(" ", "");
             String bookStatus = e.select("[width=20%]").text();
             holdingInfo.setIndexBookNum(indexBookNum);
             holdingInfo.setBookLocation(location);
             holdingInfo.setBookStatus(bookStatus);
-            holdingInfos.add(holdingInfo);
+            bookInfo.getHoldingInfos().add(holdingInfo);
             System.out.println("地点: " + location);
             System.out.println("索书号" + indexBookNum);
             System.out.println("状态" + bookStatus);
         }
-        bookInfo.setHoldingInfos(holdingInfos);
         return bookInfo;
     }
 

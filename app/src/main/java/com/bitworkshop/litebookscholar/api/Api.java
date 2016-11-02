@@ -5,5 +5,5 @@ package com.bitworkshop.litebookscholar.api;
  */
 
 public class Api {
-    public static final String LOGIC_BASE_URL = "";
+    public static final String LOGIC_BASE_URL = "http://123.207.42.17:8090";
 }

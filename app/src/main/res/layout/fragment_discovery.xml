@@ -3,6 +3,7 @@
     android:id="@+id/frag_discovery_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/appbackground"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_layout" />
@@ -25,7 +26,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_vol"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="230dp" />
 
                 <RelativeLayout
                     android:id="@+id/relative_borrow_bookshelf"
@@ -34,10 +35,6 @@
                     android:layout_below="@+id/recycler_vol"
                     android:layout_marginTop="10dp">
 
-                    <include layout="@layout/no_borrow_book_layout" />
-
-                    <include layout="@layout/to_borrow_book_list_layout" />
-
                     <ImageView
                         android:id="@+id/imageView"
                         android:layout_width="100dp"
@@ -45,6 +42,12 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:src="@drawable/discover_bg_image" />
+
+                    <include layout="@layout/no_borrow_book_layout" />
+
+                    <include layout="@layout/to_borrow_book_list_layout" />
+
+
                 </RelativeLayout>
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>

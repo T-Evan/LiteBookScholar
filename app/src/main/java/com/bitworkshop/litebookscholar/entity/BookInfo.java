@@ -1,7 +1,11 @@
 package com.bitworkshop.litebookscholar.entity;
 
+import android.graphics.Bitmap;
+
+import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,6 +13,7 @@ import java.util.List;
  */
 
 public class BookInfo extends DataSupport {
+    private long id;
     private String bookTitle;//标题
     private String author;//作者
     private String publish;//出版社
@@ -17,50 +22,15 @@ public class BookInfo extends DataSupport {
     private String midImge;//图书封面中图
     private String largeImge;//图书封面大图
 
-    private List<HoldingInfo> holdingInfos;
+    private String bookInfoId;
+    private Bitmap largeBitmap;//大图bitmap对象
+
+    private List<BookHoldingInfo> holdingInfos = new ArrayList<>();
 
     private String summary;//简介
 
     private String isbn;
 
-    public static class HoldingInfo {
-        private String indexBookNum;//索数号
-        private String bookLocation;//借阅位置
-        private String bookStatus;
-
-        public String getIndexBookNum() {
-            return indexBookNum;
-        }
-
-        public void setIndexBookNum(String indexBookNum) {
-            this.indexBookNum = indexBookNum;
-        }
-
-        public String getBookLocation() {
-            return bookLocation;
-        }
-
-        public void setBookLocation(String bookLocation) {
-            this.bookLocation = bookLocation;
-        }
-
-        public String getBookStatus() {
-            return bookStatus;
-        }
-
-        public void setBookStatus(String bookStatus) {
-            this.bookStatus = bookStatus;
-        }
-
-        @Override
-        public String toString() {
-            return "HoldingInfo{" +
-                    "indexBookNum='" + indexBookNum + '\'' +
-                    ", bookLocation='" + bookLocation + '\'' +
-                    ", bookStatus='" + bookStatus + '\'' +
-                    '}';
-        }
-    }
 
     public String getBookTitle() {
         return bookTitle;
@@ -118,11 +88,11 @@ public class BookInfo extends DataSupport {
         this.largeImge = largeImge;
     }
 
-    public List<HoldingInfo> getHoldingInfos() {
+    public List<BookHoldingInfo> getHoldingInfos() {
         return holdingInfos;
     }
 
-    public void setHoldingInfos(List<HoldingInfo> holdingInfos) {
+    public void setHoldingInfos(List<BookHoldingInfo> holdingInfos) {
         this.holdingInfos = holdingInfos;
     }
 
@@ -142,6 +112,35 @@ public class BookInfo extends DataSupport {
         this.isbn = isbn;
     }
 
+    public Bitmap getLargeBitmap() {
+        return largeBitmap;
+    }
+
+    public void setLargeBitmap(Bitmap largeBitmap) {
+        this.largeBitmap = largeBitmap;
+    }
+
+    public String getBookInfoId() {
+        return bookInfoId;
+    }
+
+    public void setBookInfoId(String bookInfoId) {
+        this.bookInfoId = bookInfoId;
+    }
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<BookHoldingInfo> getBookHoldingInfos(long id) {
+        return DataSupport.where("bookinfo_id like ?", String.valueOf(id)).find(BookHoldingInfo.class);
+    }
+
     @Override
     public String toString() {
         return "BookInfo{" +
@@ -152,6 +151,8 @@ public class BookInfo extends DataSupport {
                 ", smalImge='" + smalImge + '\'' +
                 ", midImge='" + midImge + '\'' +
                 ", largeImge='" + largeImge + '\'' +
+                ", bookInfoId='" + bookInfoId + '\'' +
+                ", largeBitmap=" + largeBitmap +
                 ", holdingInfos=" + holdingInfos +
                 ", summary='" + summary + '\'' +
                 ", isbn='" + isbn + '\'' +

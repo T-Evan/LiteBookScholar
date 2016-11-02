@@ -23,4 +23,7 @@
     <string name="check_update">检查更新</string>
     <string name="feedback">意见反馈</string>
     <string name="logout">退出登录</string>
+    <string name="clear">清空</string>
+    <string name="add_continue">继续添加</string>
+    <string name="i_have_under_line">我也是有底线的</string>
 </resources>

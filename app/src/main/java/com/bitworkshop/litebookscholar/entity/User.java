@@ -3,11 +3,15 @@ package com.bitworkshop.litebookscholar.entity;
 import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by AidChow on 2016/10/17.
  */
 
 public class User extends DataSupport {
+    private long id;
     @Column(ignore = true)
     private String code;
     @Column(ignore = true)
@@ -18,6 +22,7 @@ public class User extends DataSupport {
     private String user;
     private String userPassword;
     private String userName;
+    private List<BookInfo> bookInfos = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -86,5 +91,21 @@ public class User extends DataSupport {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public List<BookInfo> getBookInfos() {
+        return bookInfos;
+    }
+
+    public void setBookInfos(List<BookInfo> bookInfos) {
+        this.bookInfos = bookInfos;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

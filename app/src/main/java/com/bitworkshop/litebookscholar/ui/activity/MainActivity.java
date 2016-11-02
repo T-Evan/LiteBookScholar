@@ -50,6 +50,7 @@ public class MainActivity extends BaseActivity implements OnTabSelectListener {
     @Override
     protected void onResume() {
         super.onResume();
+        System.out.println("MainActivity onResume");
     }
 
     private void controlFragment(int position) {
@@ -116,5 +117,22 @@ public class MainActivity extends BaseActivity implements OnTabSelectListener {
         isUpdate = getIntent().getBooleanExtra("update", false);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        System.out.println("MainActivity onStop");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("MainActivity onStop");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        System.out.println("MainActivity onRestart");
+    }
 
 }

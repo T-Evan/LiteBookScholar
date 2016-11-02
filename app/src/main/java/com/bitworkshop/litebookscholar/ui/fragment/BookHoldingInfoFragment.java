@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bitworkshop.litebookscholar.R;
+import com.bitworkshop.litebookscholar.entity.BookHoldingInfo;
 import com.bitworkshop.litebookscholar.entity.BookInfo;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class BookHoldingInfoFragment extends Fragment {
 
     @BindView(R.id.recycler_book_holding_info)
     RecyclerView recyclerBookHoldingInfo;
-    private List<BookInfo.HoldingInfo> holdingInfos = new ArrayList<>();
+    private List<BookHoldingInfo> holdingInfos = new ArrayList<>();
     private BookHoldingInfoAdapter holdingInfoAdapter;
 
     public static BookHoldingInfoFragment newtInstance() {
@@ -52,15 +53,15 @@ public class BookHoldingInfoFragment extends Fragment {
         recyclerBookHoldingInfo.setAdapter(holdingInfoAdapter);
     }
 
-    public void setHodingInfo(List<BookInfo.HoldingInfo> hodingInfos) {
+    public void setHodingInfo(List<BookHoldingInfo> hodingInfos) {
         this.holdingInfos.addAll(hodingInfos);
         holdingInfoAdapter.notifyItemRangeInserted(holdingInfoAdapter.getItemCount(), hodingInfos.size());
     }
 
     static class BookHoldingInfoAdapter extends RecyclerView.Adapter<BookHoldingInfoAdapter.BookHoldingInfoViewHolder> {
-        private List<BookInfo.HoldingInfo> holdingInfos;
+        private List<BookHoldingInfo> holdingInfos;
 
-        public BookHoldingInfoAdapter(List<BookInfo.HoldingInfo> holdingInfos) {
+        public BookHoldingInfoAdapter(List<BookHoldingInfo> holdingInfos) {
             this.holdingInfos = holdingInfos;
         }
 

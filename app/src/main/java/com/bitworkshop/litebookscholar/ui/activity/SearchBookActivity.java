@@ -228,7 +228,7 @@ public class SearchBookActivity extends BaseActivity implements ISearchView, Pag
 
     @Override
     public void onItemClick(View itemview, int position) {
-        BookInfoActivity.startActivity(this, itms.get(position).getBookInfoId(), null);
+        BookInfoActivity.startActivity(this, itms.get(position).getBookInfoId());
         searchView.setFocusable(false);
     }
 }

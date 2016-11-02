@@ -1,27 +1,23 @@
 package com.bitworkshop.litebookscholar.adapter;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bitworkshop.litebookscholar.App;
 import com.bitworkshop.litebookscholar.R;
 import com.bitworkshop.litebookscholar.asynctask.GetBookImage;
 import com.bitworkshop.litebookscholar.asynctask.ThreadPoolFactory;
+import com.bitworkshop.litebookscholar.entity.BookInfo;
 import com.bitworkshop.litebookscholar.entity.LibraryQueryListItm;
 import com.bitworkshop.litebookscholar.util.Utils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,19 +29,19 @@ import butterknife.ButterKnife;
  * Created by AidChow on 2016/10/21.
  */
 
-public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.ViewHolder> {
+public class BorrowBookListAdapter extends RecyclerView.Adapter<BorrowBookListAdapter.ViewHolder> {
 
 
-    private List<LibraryQueryListItm> libraryQueryListItms;
+    private List<BookInfo> bookInfos;
     private Context mContext;
     private LayoutInflater inflater;
     private ExecutorService exec;
     private OnItemClickListener listener;
 
-    public SearchResultAdapter(Context mContext, List<LibraryQueryListItm> libraryQueryListItms) {
+    public BorrowBookListAdapter(Context mContext, List<BookInfo> bookInfos) {
         this.mContext = mContext;
         inflater = LayoutInflater.from(mContext);
-        this.libraryQueryListItms = libraryQueryListItms;
+        this.bookInfos = bookInfos;
     }
 
     @Override
@@ -56,48 +52,22 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        final LibraryQueryListItm listItm = libraryQueryListItms.get(position);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    exec = Executors.newCachedThreadPool(new ThreadPoolFactory());
-                    final String imageUrl = exec.submit(new GetBookImage(listItm.getBookTitle())).get();
-                    listItm.setImge(imageUrl);
-                    holder.imageBook.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (listItm.getImge() != null) {
-                                Glide.with(mContext)
-                                        .load(listItm.getImge())
-                                        .placeholder(Utils.getRandomColors())
-                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                        .into(holder.imageBook);
-                            } else {
-                                holder.imageBook.setImageResource(Utils.getRandomColors());
-                            }
-
-                            exec.shutdown();
-                        }
-                    });
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        final BookInfo listItm = bookInfos.get(position);
+        Glide.with(mContext).load(listItm.getMidImge())
+                .placeholder(Utils.getRandomColors())
+                .into(holder.imageBook);
         holder.tvBookTitle.setText(listItm.getBookTitle());
         holder.tvBookAuthor.setText(listItm.getAuthor());
-        holder.tvBookIndexNum.setText(listItm.getIndexBookNum());
-        holder.tvBookPublish.setText(listItm.getPublish());
-        if (listItm.getCanBorrowBooks() != 0) {
-            holder.tvBookCanBorrow.setVisibility(View.VISIBLE);
-        }
+        holder.tvBookIndexNum.setText(listItm.getBookHoldingInfos(listItm.getId()).get(0).getIndexBookNum());
+        holder.tvBookPublish.setText(listItm.getBookHoldingInfos(listItm.getId()).get(0).getBookLocation());
+
     }
 
     @Override
     public int getItemCount() {
-        return libraryQueryListItms.size();
+        return bookInfos.size();
     }
+
 
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.image_book)

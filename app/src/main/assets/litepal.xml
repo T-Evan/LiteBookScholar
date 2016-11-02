@@ -8,7 +8,8 @@
 
     <list>
         <mapping class="com.bitworkshop.litebookscholar.entity.User" />
-        <!--<mapping class="com.test.model.Magazine"></mapping>-->
+        <mapping class="com.bitworkshop.litebookscholar.entity.BookInfo" />
+        <mapping class="com.bitworkshop.litebookscholar.entity.BookHoldingInfo" />
     </list>
     <list />
 

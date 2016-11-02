@@ -48,6 +48,7 @@ public class OneAdapter extends RecyclerView.Adapter<OneAdapter.ViewHolder> {
         One.DataBean dataBean = onDataBeens.get(position);
         String vol = dataBean.getVol();
         Glide.with(mContext).load(dataBean.getUrl())
+                .placeholder(Utils.getRandomColors())
                 .centerCrop()
                 .into(holder.imageOneWords);
         if (vol.length() == 1) {
@@ -57,7 +58,7 @@ public class OneAdapter extends RecyclerView.Adapter<OneAdapter.ViewHolder> {
             vol = "0" + vol;
         }
         holder.tvVol.setText("VOL." + vol);
-        holder.tvAuthor.setText(dataBean.getAuthor() +" |");
+        holder.tvAuthor.setText(dataBean.getAuthor() + " |");
         holder.tvDescription.setText(onDataBeens.get(position).getSentence());
     }
 

@@ -2,9 +2,11 @@ package com.bitworkshop.litebookscholar.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,9 +18,11 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bitworkshop.litebookscholar.App;
 import com.bitworkshop.litebookscholar.R;
 import com.bitworkshop.litebookscholar.adapter.BookInfoFragmnetAdapter;
 import com.bitworkshop.litebookscholar.asynctask.DownloadIImageFromHttp;
+import com.bitworkshop.litebookscholar.entity.BookHoldingInfo;
 import com.bitworkshop.litebookscholar.entity.BookInfo;
 import com.bitworkshop.litebookscholar.entity.DoubanBookInfo;
 import com.bitworkshop.litebookscholar.presenter.BookInfoPresenter;
@@ -34,6 +38,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +46,6 @@ import butterknife.OnClick;
 
 public class BookInfoActivity extends BaseActivity implements IBookInfoView {
     private final static String BOOK_ID = "bookid";
-    private final static String ISBN = "isbn";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.table_layout)
@@ -77,10 +81,11 @@ public class BookInfoActivity extends BaseActivity implements IBookInfoView {
     private String keyWors;
     private BookInfoFragmnetAdapter adapter;
 
-    public static void startActivity(Context context, String bookId, String isbn) {
+    private static boolean isSave = false;
+
+    public static void startActivity(Context context, String bookId) {
         Intent intent = new Intent(context, BookInfoActivity.class);
         intent.putExtra(BOOK_ID, bookId);
-        intent.putExtra(ISBN, isbn);
         context.startActivity(intent);
     }
 
@@ -103,15 +108,92 @@ public class BookInfoActivity extends BaseActivity implements IBookInfoView {
         Intent intent = getIntent();
         if (intent.getStringExtra(BOOK_ID) != null) {
             keyWors = intent.getStringExtra(BOOK_ID);
-            if (Utils.isOnline(this)) {
-                bookInfoPresenter.getBookInfoFromLib(keyWors);
+            //首先从数据库拿
+            // 没拿到从网上拿
+            if (bookInfoPresenter.getBookInfoFromDatabase(keyWors) != null) {
+                isSave = true;
+                setBookInfoFromDataBase(bookInfoPresenter.getBookInfoFromDatabase(keyWors));
             } else {
-                MyToastUtils.showToast(this, "哎呀,网络有问题");
+                if (Utils.isOnline(this)) {
+                    bookInfoPresenter.getBookInfoFromLib(keyWors);
+                } else {
+                    MyToastUtils.showToast(this, "哎呀,网络有问题");
+                }
             }
-        } else {
-            keyWors = intent.getStringExtra(ISBN);
-            bookInfoPresenter.getBookInfoFromDatabase(keyWors);
         }
+    }
+
+
+    private void setBookInfoFromDataBase(final BookInfo bookInfoFromDatabase) {
+        bookInfo = bookInfoFromDatabase;
+        for (BookHoldingInfo bookHoldingInfo : bookInfoFromDatabase.getBookHoldingInfos(bookInfoFromDatabase.getId())) {
+            System.out.println(bookHoldingInfo);
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    TimeUnit.SECONDS.sleep(2);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                viewpager.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        BookHoldingInfoFragment fragment = (BookHoldingInfoFragment) adapter.getRegisteredFragment(0);
+                        fragment.setHodingInfo(bookInfo.getBookHoldingInfos(bookInfo.getId()));
+                        BookSummaryInfoFragment booksummaryinfofragment = (BookSummaryInfoFragment) adapter.getRegisteredFragment(1);
+                        if (bookInfo.getSummary() != null) {
+                            booksummaryinfofragment.setSummary(bookInfo.getSummary());
+                        } else {
+                            booksummaryinfofragment.setSummary("简介飞走了");
+                        }
+                    }
+                });
+            }
+        }).start();
+        isSave = true;
+        floatAddToBookshelf.setIconDrawable(getDrawable(R.drawable.ic_favorite_add));
+        tvBookAuthor.setText(bookInfoFromDatabase.getAuthor());
+        tvBookPublish.setText(bookInfoFromDatabase.getPublish());
+        tvBookTitle.setText(bookInfoFromDatabase.getBookTitle());
+        double average = bookInfoFromDatabase.getAverage();
+        if (average > 0) {
+            ratingBarOfBook.setRating((float) average);
+            ratingBarOfBook.setVisibility(View.VISIBLE);
+            tvBookAverage.setText(String.valueOf(average));
+            tvBookAverage.setVisibility(View.VISIBLE);
+        }
+        if (bookInfo.getLargeImge() != null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ExecutorService executorService = Executors.newSingleThreadExecutor();
+                    try {
+                        Bitmap bitmap = executorService.submit(new DownloadIImageFromHttp(bookInfo.getLargeImge())).get();
+                        bookInfo.setLargeBitmap(BlurBitmap.blur(App.getContext(), bitmap));
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    } finally {
+                        executorService.shutdown();
+                    }
+                    iamgeBookLarge.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            iamgeBookLarge.setImageBitmap(bookInfo.getLargeBitmap());
+                            Glide.with(App.getContext())
+                                    .load(bookInfo.getMidImge())
+                                    .placeholder(Utils.getRandomColors())
+                                    .into(imageBook);
+                        }
+                    });
+                }
+            }).start();
+        } else {
+            iamgeBookLarge.setImageResource(Utils.getRandomColors());
+            imageBook.setImageResource(Utils.getRandomColors());
+        }
+
     }
 
     private void setupviews() {
@@ -124,6 +206,10 @@ public class BookInfoActivity extends BaseActivity implements IBookInfoView {
         adapter = new BookInfoFragmnetAdapter(getSupportFragmentManager(), this);
         viewpager.setAdapter(adapter);
         tableLayout.setupWithViewPager(viewpager);
+        if (isSave) {
+            floatAddToBookshelf.setIconDrawable(getDrawable(R.drawable.ic_favorite_add));
+        }
+
     }
 
     @Override
@@ -136,10 +222,23 @@ public class BookInfoActivity extends BaseActivity implements IBookInfoView {
 
     @OnClick(R.id.float_add_to_bookshelf)
     public void onClick() {
-        if (bookInfo != null) {
-            bookInfoPresenter.addBookToShelf(bookInfo);
-            floatAddToBookshelf.setIconDrawable(getDrawable(R.drawable.ic_favorite_add));
+        if (!isSave) {
+            if (bookInfo != null) {
+                bookInfo.setBookInfoId(keyWors);
+                isSave = bookInfoPresenter.addBookToShelf(bookInfo, getUserAccount());
+                System.out.println("save" + bookInfo.toString());
+                if (isSave) {
+                    floatAddToBookshelf.setIconDrawable(getDrawable(R.drawable.ic_favorite_add));
+                }
+            }
+
+        } else {
+            isSave = false;
+            System.out.println("delete");
+            bookInfoPresenter.deleteBookInfo(keyWors);
+            floatAddToBookshelf.setIconDrawable(getDrawable(R.drawable.ic_favorite_not_add));
         }
+
     }
 
     @Override
@@ -155,28 +254,41 @@ public class BookInfoActivity extends BaseActivity implements IBookInfoView {
     }
 
     @Override
-    public void setBookInfoFromDouban(DoubanBookInfo doubanBookInfo) {
+    public void setBookInfoFromDouban(final DoubanBookInfo doubanBookInfo) {
         BookSummaryInfoFragment fragment = (BookSummaryInfoFragment) adapter.getRegisteredFragment(1);
         if (doubanBookInfo != null) {
             bookInfo.setSmalImge(doubanBookInfo.getImages().getSmall());
             bookInfo.setMidImge(doubanBookInfo.getImages().getMedium());
             bookInfo.setLargeImge(doubanBookInfo.getImages().getLarge());
+            bookInfo.setSummary(doubanBookInfo.getSummary());
             double average = Double.parseDouble(doubanBookInfo.getRating().getAverage());
             if (average > 0) {
                 bookInfo.setAverage(average);
                 ratingBarOfBook.setRating((float) average);
                 ratingBarOfBook.setVisibility(View.VISIBLE);
+                tvBookAverage.setText(doubanBookInfo.getRating().getAverage());
+                tvBookAverage.setVisibility(View.VISIBLE);
             }
-            ExecutorService exec = Executors.newSingleThreadExecutor();
-            try {
-                Bitmap bitmap = exec.submit(new DownloadIImageFromHttp(doubanBookInfo.getImages().getLarge())).get();
-                iamgeBookLarge.setImageBitmap(BlurBitmap.blur(this, bitmap));
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            } finally {
-                exec.shutdown();
-            }
-            tvBookAverage.setText(doubanBookInfo.getRating().getAverage());
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    final ExecutorService exec = Executors.newSingleThreadExecutor();
+                    Bitmap bitmap = null;
+                    try {
+                        bitmap = exec.submit(new DownloadIImageFromHttp(doubanBookInfo.getImages().getLarge())).get();
+                        bookInfo.setLargeBitmap(bitmap);
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    iamgeBookLarge.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                iamgeBookLarge.setImageBitmap(BlurBitmap.blur(BookInfoActivity.this, bookInfo.getLargeBitmap()));
+                                            }
+                                        }
+                    );
+                }
+            }).start();
             Glide.with(this)
                     .load(doubanBookInfo.getImages().getMedium())
                     .placeholder(Utils.getRandomColors())
@@ -186,7 +298,9 @@ public class BookInfoActivity extends BaseActivity implements IBookInfoView {
             } else {
                 fragment.setSummary("尚无简介");
             }
-        } else {
+        } else
+
+        {
             imageBook.setImageResource(Utils.getRandomColors());
             tvBookAverage.setVisibility(View.GONE);
             iamgeBookLarge.setImageResource(Utils.getRandomColors());
@@ -206,6 +320,7 @@ public class BookInfoActivity extends BaseActivity implements IBookInfoView {
     protected void onPause() {
         super.onPause();
         Glide.with(this).pauseRequests();
+        isSave = false;
     }
 
     @Override
@@ -223,6 +338,17 @@ public class BookInfoActivity extends BaseActivity implements IBookInfoView {
     @Override
     public void showError(String msg) {
         MyToastUtils.showToast(this, msg);
+    }
+
+    /**
+     * 从sharedPreferencs文件中获取账户信息
+     * 作为关键字，去数据库中执行查询
+     *
+     * @return
+     */
+    private String getUserAccount() {
+        SharedPreferences sp = getSharedPreferences(SplashActivity.IS_LOGIN_FILE_NAME, 0);
+        return sp.getString(LoginActivity.USER_ACCOUNT, "");
     }
 
 }
