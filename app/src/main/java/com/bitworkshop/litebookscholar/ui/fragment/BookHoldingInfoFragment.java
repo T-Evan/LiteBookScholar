@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by aidChow on 2016/10/16.
  */
 
-public class BookHoldingInfoFragment extends Fragment {
+public class BookHoldingInfoFragment extends BaseFragment {
 
     @BindView(R.id.recycler_book_holding_info)
     RecyclerView recyclerBookHoldingInfo;

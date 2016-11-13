@@ -1,6 +1,7 @@
 package com.bitworkshop.litebookscholar.ui.activity;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -79,6 +80,16 @@ public class BaseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(asHomeUp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(asHomeUp);
+    }
+    /**
+     * 从sharedPreferencs文件中获取账户信息
+     * 作为关键字，去数据库中执行查询
+     *
+     * @return
+     */
+    protected String getUserAccount() {
+        SharedPreferences sp = getSharedPreferences(SplashActivity.IS_LOGIN_FILE_NAME, 0);
+        return sp.getString(LoginActivity.USER_ACCOUNT, "");
     }
 
     @Override

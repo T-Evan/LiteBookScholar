@@ -1,6 +1,7 @@
 package com.bitworkshop.litebookscholar.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,8 @@ public class BorrowBookListAdapter extends RecyclerView.Adapter<BorrowBookListAd
         Glide.with(mContext).load(listItm.getMidImge())
                 .placeholder(Utils.getRandomColors())
                 .into(holder.imageBook);
+        Typeface typeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/方正清刻本悦宋简体.TTF");
+        holder.tvBookTitle.setTypeface(typeface);
         holder.tvBookTitle.setText(listItm.getBookTitle());
         holder.tvBookAuthor.setText(listItm.getAuthor());
         holder.tvBookIndexNum.setText(listItm.getBookHoldingInfos(listItm.getId()).get(0).getIndexBookNum());
@@ -86,8 +89,6 @@ public class BorrowBookListAdapter extends RecyclerView.Adapter<BorrowBookListAd
         ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

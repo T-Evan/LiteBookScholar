@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
  * Created by aidChow on 2016/10/16.
  */
 
-public class BookSummaryInfoFragment extends Fragment {
+public class BookSummaryInfoFragment extends BaseFragment {
 
     @BindView(R.id.tv_summary)
     TextView tvSummary;

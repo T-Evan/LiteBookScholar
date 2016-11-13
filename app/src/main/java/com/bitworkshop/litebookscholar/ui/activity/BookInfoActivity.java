@@ -4,9 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -46,12 +47,8 @@ import butterknife.OnClick;
 
 public class BookInfoActivity extends BaseActivity implements IBookInfoView {
     private final static String BOOK_ID = "bookid";
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.table_layout)
-    TabLayout tableLayout;
-    @BindView(R.id.viewpager)
-    ViewPager viewpager;
+    @BindView(R.id.iamge_book_large)
+    ImageView iamgeBookLarge;
     @BindView(R.id.image_book)
     ImageView imageBook;
     @BindView(R.id.tv_book_title)
@@ -66,14 +63,19 @@ public class BookInfoActivity extends BaseActivity implements IBookInfoView {
     TextView tvBookAverage;
     @BindView(R.id.relative_book_base_info)
     RelativeLayout relativeBookBaseInfo;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.collaps_toolbar_layout)
+    CollapsingToolbarLayout collapsToolbarLayout;
+    @BindView(R.id.appbar)
+    AppBarLayout appbar;
+    @BindView(R.id.table_layout)
+    TabLayout tableLayout;
+    @BindView(R.id.viewpager)
+    ViewPager viewpager;
     @BindView(R.id.float_add_to_bookshelf)
     FloatingActionButton floatAddToBookshelf;
-    @BindView(R.id.swipe_refresh)
-    SwipeRefreshLayout swipeRefresh;
-    @BindView(R.id.activity_book_shelf)
-    RelativeLayout activityBookShelf;
-    @BindView(R.id.iamge_book_large)
-    ImageView iamgeBookLarge;
+
 
     private BookInfoPresenter bookInfoPresenter;
     private BookInfo bookInfo;
@@ -82,6 +84,13 @@ public class BookInfoActivity extends BaseActivity implements IBookInfoView {
     private BookInfoFragmnetAdapter adapter;
 
     private static boolean isSave = false;
+    private CollapsingToolbarLayoutState state;
+
+    private enum CollapsingToolbarLayoutState {
+        EXPANDED,
+        COLLAPSED,
+        INTERNEDIATE
+    }
 
     public static void startActivity(Context context, String bookId) {
         Intent intent = new Intent(context, BookInfoActivity.class);
@@ -92,9 +101,8 @@ public class BookInfoActivity extends BaseActivity implements IBookInfoView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_info);
+        setContentView(R.layout.activity_book_info2);
         ButterKnife.bind(this);
-        setupToolbar(toolbar, "图书详情", true);
         setupviews();
         bookInfoPresenter = new BookInfoPresenter(this);
         loadDatas();
@@ -123,7 +131,11 @@ public class BookInfoActivity extends BaseActivity implements IBookInfoView {
         }
     }
 
-
+    /**
+     * 从数据库读取简介
+     *
+     * @param bookInfoFromDatabase
+     */
     private void setBookInfoFromDataBase(final BookInfo bookInfoFromDatabase) {
         bookInfo = bookInfoFromDatabase;
         for (BookHoldingInfo bookHoldingInfo : bookInfoFromDatabase.getBookHoldingInfos(bookInfoFromDatabase.getId())) {
@@ -197,8 +209,28 @@ public class BookInfoActivity extends BaseActivity implements IBookInfoView {
     }
 
     private void setupviews() {
-        swipeRefresh.setColorSchemeColors(Utils.getRandomColors());
-        swipeRefresh.setEnabled(false);
+        collapsToolbarLayout.setTitleEnabled(false);
+        setupToolbar(toolbar, "图书详情", true);
+        appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset == 0) {
+                    if (state != CollapsingToolbarLayoutState.EXPANDED) {
+                        state = CollapsingToolbarLayoutState.EXPANDED;
+                        toolbar.setTitle("图书详情");
+                        toolbar.setTitleTextColor(getColor(android.R.color.white));
+                        toolbar.getNavigationIcon().setColorFilter(getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+                    }
+                } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
+                    if (state != CollapsingToolbarLayoutState.COLLAPSED) {
+                        toolbar.setTitle(bookInfo.getBookTitle());
+                        state = CollapsingToolbarLayoutState.COLLAPSED;
+                        toolbar.setTitleTextAppearance(BookInfoActivity.this, R.style.Toolbar_TitleText);
+                        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+                    }
+                }
+            }
+        });
         setupTables();
     }
 
@@ -325,30 +357,15 @@ public class BookInfoActivity extends BaseActivity implements IBookInfoView {
 
     @Override
     public void showLoading() {
-        swipeRefresh.setEnabled(true);
-        swipeRefresh.setRefreshing(true);
     }
 
     @Override
     public void hideLoading() {
-        swipeRefresh.setEnabled(false);
-        swipeRefresh.setRefreshing(false);
     }
 
     @Override
     public void showError(String msg) {
         MyToastUtils.showToast(this, msg);
-    }
-
-    /**
-     * 从sharedPreferencs文件中获取账户信息
-     * 作为关键字，去数据库中执行查询
-     *
-     * @return
-     */
-    private String getUserAccount() {
-        SharedPreferences sp = getSharedPreferences(SplashActivity.IS_LOGIN_FILE_NAME, 0);
-        return sp.getString(LoginActivity.USER_ACCOUNT, "");
     }
 
 }

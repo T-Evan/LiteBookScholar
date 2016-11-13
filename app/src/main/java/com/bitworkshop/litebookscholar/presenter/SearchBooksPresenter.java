@@ -22,9 +22,9 @@ public class SearchBooksPresenter {
         iSerachModel = new SearchModel();
     }
 
-    public void searchBooks(String tilte, int pages) {
+    public void searchBooks(String type, String tilte, int pages) {
         iSearchView.showLoading();
-        iSerachModel.doSearchBooks(tilte, pages, new OnSearchRequestListner<List<LibraryQueryListItm>>() {
+        iSerachModel.doSearchBooks(type, tilte, pages, new OnSearchRequestListner<List<LibraryQueryListItm>>() {
 
             @Override
             public void Seccess(List<LibraryQueryListItm> libraryQueryListItms) {

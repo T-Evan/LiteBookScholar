@@ -11,8 +11,10 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.bitworkshop.litebookscholar.R;
 import com.bitworkshop.litebookscholar.adapter.CustomLoadingListItemCreator;
@@ -60,6 +62,12 @@ public class SearchBookActivity extends BaseActivity implements ISearchView, Pag
     private LinearLayoutManager linearLayoutManager;
     private SearchResultAdapter adapter;
 
+    public static void startActivity(Context context, String isbn) {
+        Intent i = new Intent(context, SearchBookActivity.class);
+        i.putExtra("isbn", isbn);
+        context.startActivity(i);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +76,6 @@ public class SearchBookActivity extends BaseActivity implements ISearchView, Pag
         setupToolbar(toolbar, "", true);
         initViewS();
         handIntent(getIntent());
-        System.out.println("loadmore" + (pageNums == pages));
     }
 
     @Override
@@ -81,11 +88,12 @@ public class SearchBookActivity extends BaseActivity implements ISearchView, Pag
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             query = intent.getStringExtra(SearchManager.QUERY);
             System.out.println("result" + query);
-            if (Utils.isOnline(this)) {
-                doMysearch(query);
-            } else {
-                MyToastUtils.showToast(this, "哎呀,网络有问题!");
-            }
+
+            doMysearch("title", query);
+        }
+        if (intent.getStringExtra("isbn") != null) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+            doMysearch("isbn", intent.getStringExtra("isbn"));
         }
     }
 
@@ -94,11 +102,15 @@ public class SearchBookActivity extends BaseActivity implements ISearchView, Pag
      *
      * @param query
      */
-    private void doMysearch(String query) {
+    private void doMysearch(String type, String query) {
         resetSearch();
         configLoadMore();
         recyclerSearchResult.setVisibility(View.GONE);
-        presenter.searchBooks(query, 1);
+        if (Utils.isOnline(this)) {
+            presenter.searchBooks(type, query, 1);
+        } else {
+            MyToastUtils.showToast(this, "哎呀,网络有问题!");
+        }
     }
 
     /**

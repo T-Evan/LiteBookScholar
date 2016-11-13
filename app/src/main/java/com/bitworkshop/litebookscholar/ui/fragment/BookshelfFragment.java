@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
  * Created by aidChow on 2016/10/16.
  */
 
-public class BookshelfFragment extends Fragment {
+public class BookshelfFragment extends BaseFragment {
     @BindView(R.id.tv_toolbar_title)
     TextView tvToolbarTitle;
     @BindView(R.id.toolbar)
@@ -47,13 +47,7 @@ public class BookshelfFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initToolbar();
+        initToolbarCustemerTitle(tvToolbarTitle);
     }
-
-    private void initToolbar() {
-        tvToolbarTitle.setVisibility(View.VISIBLE);
-        tvToolbarTitle.setText(R.string.app_name);
-    }
-
 }
 

@@ -44,9 +44,9 @@ public class SearchModel implements ISerachModel {
 
 
     @Override
-    public void doSearchBooks(String title, int pages, final OnSearchRequestListner<List<LibraryQueryListItm>> listner) {
+    public void doSearchBooks(String type, String title, int pages, final OnSearchRequestListner<List<LibraryQueryListItm>> listner) {
         final Map<String, String> map = new HashMap<>();
-        map.put("strSearchType", "title");
+        map.put("strSearchType", type);
         map.put("strText", title);
         map.put("displaypg", "10");
         map.put("page", String.valueOf(pages));

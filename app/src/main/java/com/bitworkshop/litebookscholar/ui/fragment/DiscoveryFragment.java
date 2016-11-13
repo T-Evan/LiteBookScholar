@@ -1,11 +1,10 @@
 package com.bitworkshop.litebookscholar.ui.fragment;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bitworkshop.litebookscholar.R;
 import com.bitworkshop.litebookscholar.adapter.BorrowBookListAdapter;
@@ -26,9 +24,8 @@ import com.bitworkshop.litebookscholar.entity.BookInfo;
 import com.bitworkshop.litebookscholar.entity.One;
 import com.bitworkshop.litebookscholar.presenter.DiscoveryPresenter;
 import com.bitworkshop.litebookscholar.ui.activity.BookInfoActivity;
-import com.bitworkshop.litebookscholar.ui.activity.LoginActivity;
+import com.bitworkshop.litebookscholar.ui.activity.ScannerActivity;
 import com.bitworkshop.litebookscholar.ui.activity.SearchBookActivity;
-import com.bitworkshop.litebookscholar.ui.activity.SplashActivity;
 import com.bitworkshop.litebookscholar.ui.view.IDiscoverView;
 import com.bitworkshop.litebookscholar.util.MyToastUtils;
 import com.bitworkshop.litebookscholar.util.Utils;
@@ -45,7 +42,7 @@ import butterknife.OnClick;
  * Created by AidChow on 2016/10/16.
  */
 
-public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemClickListener, IDiscoverView, SwipeRefreshLayout.OnRefreshListener, BorrowBookListAdapter.OnItemClickListener {
+public class DiscoveryFragment extends BaseFragment implements Toolbar.OnMenuItemClickListener, IDiscoverView, SwipeRefreshLayout.OnRefreshListener, BorrowBookListAdapter.OnItemClickListener {
     @BindView(R.id.tv_toolbar_title)
     TextView tvToolbarTitle;
     @BindView(R.id.toolbar)
@@ -90,16 +87,16 @@ public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemCli
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initToolbar();
+        initViews();
         presenter = new DiscoveryPresenter(this);
-        adapter = new OneAdapter(getContext(), oDataBeen);
-        recyclerVol.setAdapter(adapter);
-        borrowBookListAdapter = new BorrowBookListAdapter(getContext(), bookInfos);
-        recyclerToBorrowList.setAdapter(borrowBookListAdapter);
-        borrowBookListAdapter.setOnItemClickListner(this);
-        swipeRefresh.setColorSchemeColors(Color.YELLOW, Color.RED, Color.BLUE);
-        swipeRefresh.setDistanceToTriggerSync(300);
-        swipeRefresh.setOnRefreshListener(this);
+        initDates();
+
+        loaddate();
+
+
+    }
+
+    private void loaddate() {
         if (Utils.isOnline(getActivity())) {
             swipeRefresh.post(new Runnable() {
                 @Override
@@ -111,24 +108,32 @@ public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemCli
         } else {
             MyToastUtils.showToast(getActivity(), "请检查网络设置");
         }
-
-
     }
 
-    private void initToolbar() {
-        tvToolbarTitle.setVisibility(View.VISIBLE);
-        tvToolbarTitle.setText(R.string.app_name);
+    private void initDates() {
+        adapter = new OneAdapter(getContext(), oDataBeen);
+        recyclerVol.setAdapter(adapter);
+        borrowBookListAdapter = new BorrowBookListAdapter(getContext(), bookInfos);
+        recyclerToBorrowList.setAdapter(borrowBookListAdapter);
+        borrowBookListAdapter.setOnItemClickListner(this);
+    }
+
+    private void initViews() {
+        initToolbarCustemerTitle(tvToolbarTitle);
         toolbar.inflateMenu(R.menu.dircovery_menu);
         toolbar.setOnMenuItemClickListener(this);
         recyclerVol.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recyclerToBorrowList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        swipeRefresh.setColorSchemeColors(Utils.getRandomColors());
+        swipeRefresh.setDistanceToTriggerSync(300);
+        swipeRefresh.setOnRefreshListener(this);
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_scan:
-                Toast.makeText(getActivity(), "扫一扫", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), ScannerActivity.class));
                 return true;
             case R.id.menu_search:
                 startActivity(new Intent(getActivity(), SearchBookActivity.class));
@@ -219,16 +224,6 @@ public class DiscoveryFragment extends Fragment implements Toolbar.OnMenuItemCli
         BookInfoActivity.startActivity(getContext(), bookInfos.get(position).getBookInfoId());
     }
 
-    /**
-     * 从sharedPreferencs文件中获取账户信息
-     * 作为关键字，去数据库中执行查询
-     *
-     * @return
-     */
-    private String getUserAccount() {
-        SharedPreferences sp = getActivity().getSharedPreferences(SplashActivity.IS_LOGIN_FILE_NAME, 0);
-        return sp.getString(LoginActivity.USER_ACCOUNT, "");
-    }
 
 }
 

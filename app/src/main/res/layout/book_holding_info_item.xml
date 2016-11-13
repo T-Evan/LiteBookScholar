@@ -15,45 +15,42 @@
             android:id="@+id/tv_book_index_tips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="索书号" />
+            android:text="@string/index_book_num" />
 
         <TextView
             android:id="@+id/tv_book_index"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/tv_book_location_tips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="位置" />
+            android:layout_marginTop="5dp"
+            android:text="@string/book_location" />
 
         <TextView
             android:id="@+id/tv_book_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/tv_book_status_tips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="书刊状态" />
+            android:layout_marginTop="5dp"
+            android:text="@string/book_status" />
 
         <TextView
             android:id="@+id/tv_book_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
 </LinearLayout>

@@ -162,27 +162,30 @@ public class BookInfoModel implements IBookInfoModel {
         Element ele = doc.getElementById("book_info");
 //        System.out.println(ele.html());
         Elements dl = ele.select("dl.booklist");
-        Elements authors = dl.get(0).select("dd");
-        for (Element e : authors) {
-            //作者
-            String author = e.ownText().replace("/", "");
-            bookInfo.setAuthor(author);
-            System.out.println(author);
+        for (Element e : dl) {
+            String temp = e.select("dt").first().text();
+            //作者和题名
+            if (temp.equals("题名/责任者:")) {
+                String title = e.select("dd > a").text();
+                String author = e.select("dd").text().substring(title.length() + 1);
+                bookInfo.setAuthor(author);
+                bookInfo.setBookTitle(title);
+                System.out.println(author);
+                System.out.println(title);
+            }
+            //出版社
+            if (temp.equals("出版发行项:")) {
+                String publish = e.select("dd").text();
+                bookInfo.setPublish(publish);
+                System.out.println(publish);
+            }
+            //isbn
+            if (temp.equals("ISBN及定价:")) {
+                String isbn = e.select("dd").text().replaceAll("/.*", "");
+                System.out.println(isbn);
+                bookInfo.setIsbn(isbn);
+            }
         }
-        //书名
-        String title = dl.get(0).select("dd > a").text();
-        System.out.println(title);
-        bookInfo.setBookTitle(title);
-
-        //出版社
-        String publish = dl.get(1).select("dd").text();
-        bookInfo.setPublish(publish);
-
-        //isbn
-        Elements element1 = dl.get(2).select("dd");
-        String isbn = element1.text().split("/")[0];
-        System.out.println("isbn: " + isbn);
-        bookInfo.setIsbn(isbn);
 
         //馆藏信息
         Elements tables = doc.select("tr.whitetext");

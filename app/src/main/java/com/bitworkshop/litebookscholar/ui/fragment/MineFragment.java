@@ -1,10 +1,8 @@
 package com.bitworkshop.litebookscholar.ui.fragment;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -18,10 +16,8 @@ import com.bitworkshop.litebookscholar.R;
 import com.bitworkshop.litebookscholar.entity.User;
 import com.bitworkshop.litebookscholar.presenter.MinePresenter;
 import com.bitworkshop.litebookscholar.ui.activity.AboutUsActivity;
-import com.bitworkshop.litebookscholar.ui.activity.EditInfoActivity;
-import com.bitworkshop.litebookscholar.ui.activity.LoginActivity;
 import com.bitworkshop.litebookscholar.ui.activity.SettingsActivity;
-import com.bitworkshop.litebookscholar.ui.activity.SplashActivity;
+import com.bitworkshop.litebookscholar.ui.activity.UserInfoActivity;
 import com.bitworkshop.litebookscholar.ui.view.CircleImageView;
 import com.bitworkshop.litebookscholar.ui.view.IMineView;
 import com.bumptech.glide.Glide;
@@ -38,7 +34,7 @@ import butterknife.OnClick;
  * Created by aidChow on 2016/10/16.
  */
 
-public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickListener, IMineView {
+public class MineFragment extends BaseFragment implements Toolbar.OnMenuItemClickListener, IMineView {
     @BindView(R.id.tv_toolbar_title)
     TextView tvToolbarTitle;
     @BindView(R.id.toolbar)
@@ -61,6 +57,8 @@ public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickLis
     private String userAccount;
     private String password;
 
+    private String userImageUrl;
+
     public static MineFragment getInstance() {
         return new MineFragment();
     }
@@ -80,14 +78,12 @@ public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickLis
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initToolbar();
+        initViews();
         minePresenter = new MinePresenter(this);
-
     }
 
-    private void initToolbar() {
-        tvToolbarTitle.setVisibility(View.VISIBLE);
-        tvToolbarTitle.setText(R.string.app_name);
+    private void initViews() {
+        initToolbarCustemerTitle(tvToolbarTitle);
         toolbar.inflateMenu(R.menu.mine_menu);
         toolbar.setOnMenuItemClickListener(this);
     }
@@ -108,7 +104,7 @@ public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.card_view_change_user_info:
-                EditInfoActivity.startActiviyForResult(getActivity(), userAccount, password);
+                goToActivity(UserInfoActivity.class);
                 break;
             case R.id.card_view_borrow_rule:
                 // TODO: 2016/10/27 借阅规则待做 
@@ -135,9 +131,9 @@ public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickLis
     public void setUserInfo(User user) {
         userAccount = user.getUser();
         password = user.getUserPassword();
-        if (user.getUrl() != null && user.getPetname() != null) {
-            System.out.println(userAccount + " " + password);
-            Glide.with(getActivity()).load(user.getUrl())
+        userImageUrl = user.getUrl();
+        if (!user.getUrl().equals("")) {
+            Glide.with(this).load(user.getUrl())
                     .placeholder(R.drawable.default_image)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(new SimpleTarget<GlideDrawable>() {
@@ -146,22 +142,14 @@ public class MineFragment extends Fragment implements Toolbar.OnMenuItemClickLis
                             imageUserIcon.setImageDrawable(resource);
                         }
                     });
+        }
+        if (!user.getPetname().equals("")) {
             tvUserNickname.setText(user.getPetname());
         } else {
             tvUserNickname.setText("您还没有设置昵称快去设置吧");
         }
     }
 
-    /**
-     * 从sharedPreferencs文件中获取账户信息
-     * 作为关键字，去数据库中执行查询
-     *
-     * @return
-     */
-    private String getUserAccount() {
-        SharedPreferences sp = getActivity().getSharedPreferences(SplashActivity.IS_LOGIN_FILE_NAME, 0);
-        return sp.getString(LoginActivity.USER_ACCOUNT, "");
-    }
 
     @Override
     public void onStart() {

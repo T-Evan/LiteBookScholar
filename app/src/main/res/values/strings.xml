@@ -26,4 +26,9 @@
     <string name="clear">清空</string>
     <string name="add_continue">继续添加</string>
     <string name="i_have_under_line">我也是有底线的</string>
+    <string name="index_book_num">索书号</string>
+    <string name="book_location">位置</string>
+    <string name="book_status">书刊状态</string>
+    <string name="nickname">昵称</string>
+    <string name="save">保存</string>
 </resources>

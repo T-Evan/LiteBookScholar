@@ -2,6 +2,7 @@ package com.bitworkshop.litebookscholar.adapter;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -85,6 +86,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                 }
             }
         }).start();
+        Typeface typeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/方正清刻本悦宋简体.TTF");
+        holder.tvBookTitle.setTypeface(typeface);
         holder.tvBookTitle.setText(listItm.getBookTitle());
         holder.tvBookAuthor.setText(listItm.getAuthor());
         holder.tvBookIndexNum.setText(listItm.getIndexBookNum());

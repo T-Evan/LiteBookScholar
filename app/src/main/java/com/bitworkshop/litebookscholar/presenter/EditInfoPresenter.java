@@ -48,7 +48,6 @@ public class EditInfoPresenter {
                 iEditUserInfoView.hideLoading();
                 iEditUserInfoView.seccess();
             }
-
             @Override
             public void Fiald(String msg) {
                 iEditUserInfoView.hideLoading();
