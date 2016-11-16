@@ -51,9 +51,18 @@ public class MineFragment extends BaseFragment implements Toolbar.OnMenuItemClic
     CardView cardViewSetting;
     @BindView(R.id.card_view_about)
     CardView cardViewAbout;
+<<<<<<< HEAD
     private MinePresenter minePresenter;
     private String userAccount;
     private String password;
+=======
+
+    private MinePresenter minePresenter;
+
+    private String userAccount;
+    private String password;
+
+>>>>>>> my/zjj
     private String userImageUrl;
 
     public static MineFragment getInstance() {

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="230dp">
+
+    <RelativeLayout
+        android:id="@+id/relative_vol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/image_one_words"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:foreground="@drawable/one_forceground"
+            android:scaleType="centerCrop"
+            />
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingBottom="15dp"
+            android:text="我遇见那么多人，可为什么偏偏是你，看起来最应该是过客的你，却在我心里占据这么重要的位子"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/tv_vol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_description"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/tv_author"
+            android:text="VOL. 001"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_description"
+            android:layout_marginStart="10dp"
+            android:text="橡皮"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

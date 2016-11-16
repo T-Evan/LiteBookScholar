@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\res\\merged\\debug\\menu\\search_menu.xml",
+        "source": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\src\\main\\res\\menu\\search_menu.xml"
+    },
+    {
+        "merged": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\res\\merged\\debug\\menu\\edit_nickname_menu.xml",
+        "source": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\src\\main\\res\\menu\\edit_nickname_menu.xml"
+    },
+    {
+        "merged": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\res\\merged\\debug\\menu\\ucrop_menu_activity.xml",
+        "source": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\exploded-aar\\com.yalantis\\ucrop\\2.2.0\\res\\menu\\ucrop_menu_activity.xml"
+    },
+    {
+        "merged": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\res\\merged\\debug\\menu\\mine_menu.xml",
+        "source": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\src\\main\\res\\menu\\mine_menu.xml"
+    },
+    {
+        "merged": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\res\\merged\\debug\\menu\\dircovery_menu.xml",
+        "source": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\src\\main\\res\\menu\\dircovery_menu.xml"
+    }
+]

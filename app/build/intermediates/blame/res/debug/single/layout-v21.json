@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
+        "source": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
+        "source": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout-v21\\notification_template_custom_big.xml"
+    },
+    {
+        "merged": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
+        "source": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout-v21\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
+        "source": "F:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout-v21\\notification_action.xml"
+    }
+]

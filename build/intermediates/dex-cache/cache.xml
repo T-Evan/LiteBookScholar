@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="26674000177e45447a0326a6ad84612761199a13">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.0.0_df238c1ebf70dac43e8f335c4f902b4c76514fb4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\org.litepal.android\core\1.3.2\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9a24b1b000b211eabfa13b5834c059818bc98fd5">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\org.litepal.android-core-1.3.2_ce1b2062aa2766549104ca7823ed8e4302f3214d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\design\25.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="26384be22ddc74cfe197ebda9edbc7d1fd8bd537">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-25.0.0_251181df6b10ec442a4cb4be0e94da9b4ada8113\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.qiniu\happy-dns\0.2.7\d94b7987386a3aabbb5aa0be21589f72931f0489\happy-dns-0.2.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d94b7987386a3aabbb5aa0be21589f72931f0489">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\happy-dns-0.2.7_552a27071210855fdc20e8c5615ab10d22d6c697\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\glide\3.7.0\9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4\glide-3.7.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\glide-3.7.0_1f3ddf859a86296da03fddcf50d19f29d652df81\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.9.0\f824591a0016efbaeddb8300bee54832a1398cfa\okio-1.9.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f824591a0016efbaeddb8300bee54832a1398cfa">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.9.0_db0545b090bbd931e1cf6e43202e038727277a7d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\transition\25.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0c6d948e6cb9ea6f535d175fb61ba2930719c0e9">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-transition-25.0.0_000d0af915c553332c6f5fa8b39875cb93d67a43\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.google.zxing\core\3.2.1\2287494d4f5f9f3a9a2bb6980e3f32053721b315\core-3.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2287494d4f5f9f3a9a2bb6980e3f32053721b315">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\core-3.2.1_3f96f72d8bc40481fc852122e0314b3485c288eb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\retrofit\2.1.0\2de7cd8b95b7021b1d597f049bcb422055119f2c\retrofit-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2de7cd8b95b7021b1d597f049bcb422055119f2c">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\retrofit-2.1.0_02cdaa5f093e78b272a8b951b62057cb62740b8d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.0.0\jars\libs\internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3b61a70884adaf0be3fc06c70c801e3e6df13133">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.0_69a77516bf882c2e9d3b8c61aadb8ca994dd03f8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\org.jsoup\jsoup\1.9.2\5e3bda828a80c7a21dfbe2308d1755759c2fd7b4\jsoup-1.9.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5e3bda828a80c7a21dfbe2308d1755759c2fd7b4">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\jsoup-1.9.2_62eab2ae28fd6d6aae446320496b6e7442bdfc6d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="76fb65a4b41ea42dab8a1310ed772a2420c96b52">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-25.0.0_efa149a4c39337284792bd725b346cc3735c806e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\sdk2.1\extras\android\m2repository\com\android\support\support-annotations\25.0.0\support-annotations-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a22d2cc94da87b254451fa8ed28afc30b4653773">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.0.0_65396c395adc27b788b635b0790206187f8f0432\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5e497d60f0cb6ce87c458ac5420a46d0fed49bd0">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-25.0.0_5f3fce79ea7050d760d82fa2bc5f0ab29cdbfec5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\me.dm7.barcodescanner\zxing\1.9\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="760ff0a866a9b3b7fe4a91cfe6439d9dc93cea7c">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\me.dm7.barcodescanner-zxing-1.9_ebd3829aea62a08be7a121fa6c14ea9a122dd8d7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8bc45ce1f63d1a391fd38b32a201be5a42f9c95d">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-25.0.0_40baec961409cd59ff097ac3ebe7857b0714f681\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\25.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8a372c4191f80489770a231f7be4820b204b886a">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-25.0.0_7b381e082527e614caa9935435a67975b7251c2b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7e10946613b5a3ee2de8770db67f55161478112f">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_8594faa56bb492b80c4e6207ac9cc46c8ac93b1b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-25.0.0_1f2cec178c7d94dc83c9fd9ccbdbcaf39763b882\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\sdk2.1\build-tools\25.0.0\renderscript\lib\renderscript-v8.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="05668b8cd6c7b07f152b6a5b4c6cff620817ba0f">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\renderscript-v8_bc9ad71a7b7216720d9e229eb7b77e153bdbafe3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.roughike\bottom-bar\2.0.2\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="32534a05122d0c535cc8b885e45b1e7ce3b0f03e">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.roughike-bottom-bar-2.0.2_5850e810fe2e4cfed1215f4c5cc9032a09940710\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4ccbcda5c72027c7f7c14be9ff8640d9cb0d8da0">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-25.0.0_e9f535395e8614b1185172e64829bd0319728ea9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.qiniu\qiniu-android-sdk\7.3.0\581206a8f7778ed842c5188207ad7ffd97e9134b\qiniu-android-sdk-7.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="581206a8f7778ed842c5188207ad7ffd97e9134b">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\qiniu-android-sdk-7.3.0_135dee2096781de4fb4bccf6b66d6b63d9a60039\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="93b276a141d36f12d0e955e99cd5b19d34fccf74">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_9a9e85d5c0ca3bb00aa9cc4f7707563fb6d69a01\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.4.1\c7c4f9e35c2fd5900da24f9872e3971801f08ce0\okhttp-3.4.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c7c4f9e35c2fd5900da24f9872e3971801f08ce0">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.4.1_a3a718343956c6e4d917a53a4fdd4a4dc134cda5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\me.dm7.barcodescanner\core\1.9\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ceda0650ec225b9c0143ed8ff1c010d4e621a423">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\me.dm7.barcodescanner-core-1.9_58c789c3151ed2932d529627209c64bbbf7b1055\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.0\jars\libs\internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.0_9f128643539e1cd5ff6482b63dd22a77200ed784\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.0\jars\libs\internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f2e3b9bc1ec25f652e8007ce7774c991e38f6a00">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.0_e20f3db553d8c877cf941fc1021dd8316625d457\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="07daa0b6e1d455c82a38422ffe287c18823d339a">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-25.0.0_b44ce33dc5d19ae350a8b04bb5fd13a6fa08d2c6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.github.markomilos\paginate\0.5.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="239bbc360f222b90822c6f85f6ff203d57763382">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.markomilos-paginate-0.5.1_4ede9f35786d65cd3562199436e2a2d6ed7f9a55\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.jakewharton\butterknife-annotations\8.4.0\ea392375cf9ff59234a82e7928a204215ccc98cd\butterknife-annotations-8.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ea392375cf9ff59234a82e7928a204215ccc98cd">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\butterknife-annotations-8.4.0_a2a255623276bf6fd1b525dcb3e3c692cac62c3e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.yalantis\ucrop\2.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="515960f41b2032bbff45af39c0c9628db4956d3e">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.yalantis-ucrop-2.2.0_de6ab28a93b8db59e7a25afbc21bef1855ef7bc0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="75b1f366ff0bbc78f8b1f7cf0dc82e7c53afef6a">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.0.0_4079066e12cac0b50d8dcdd4cb75e87b4711c1c1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.7\751f548c85fa49f330cecbb1875893f971b33c4e\gson-2.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.7_2e85dbf641c4a16c73925139bd4ff50ebb0450dd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\converter-gson\2.1.0\aa557d71ead91cbf26e0c316a0f593d168303309\converter-gson-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="aa557d71ead91cbf26e0c316a0f593d168303309">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\converter-gson-2.1.0_fc6d109c83c05cddded4b5ea732ed5dd7c938086\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d29714cc76b38157e3cbd034c66e1ec808eb4c19">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-25.0.0_dc61113d518c4e7898b2be2ab334cc3cf1d43b74\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.jakewharton\butterknife\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a07818a1ecabdb149998823429cce555af4b9cba">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.jakewharton-butterknife-8.4.0_eb0fb196e5af32064a8af7022c5eaf76d1b5a709\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.0\jars\libs\internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ee5faf4dee5b6a4364bf51587871047dde7c703a">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.0_e08744bdc7e28f4c928a80e1f262ca0ad4ab44e9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="53a420cd4f49274db6bd43475f8006ba67ef6bbd">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-25.0.0_4c0b0983d7a75daff0c0d2aa8a7d4ac7d1b0f1ad\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.getbase\floatingactionbutton\1.10.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f40cf334cdc8b098b74312e21c7741c6eefbeb0e">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.getbase-floatingactionbutton-1.10.1_c7e9d0bca7a769b58eb06abb98163799601424c9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.0.0\jars\libs\internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="665d21a8a069c96b4d9e8b434f5096d865b4e261">
+        <dex dex="F:\LiteBookScholar-zjj (2)\LiteBookScholar-zjj\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.0_ae2f2ad5b96868714fe8c311a3f5ee4f75f871dc\classes.dex" />
+    </item>
+
+</items>

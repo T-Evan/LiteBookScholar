@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.bitworkshop.litebookscholar"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="25" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name="com.bitworkshop.litebookscholar.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity android:name="com.bitworkshop.litebookscholar.ui.activity.SplashActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- 主activity -->
+        <activity
+            android:name="com.bitworkshop.litebookscholar.ui.activity.MainActivity"
+            android:launchMode="singleTask" />
+
+        <receiver android:name="com.bitworkshop.litebookscholar.receiver.ConnectivityChangeReceiver" />
+        <!-- 登录activity -->
+        <activity
+            android:name="com.bitworkshop.litebookscholar.ui.activity.LoginActivity"
+            android:parentActivityName="com.bitworkshop.litebookscholar.ui.activity.SplashActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.SplashActivity" />
+        </activity>
+        <!-- 搜索activity -->
+        <activity
+            android:name="com.bitworkshop.litebookscholar.ui.activity.SearchBookActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.bitworkshop.litebookscholar.ui.activity.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.MainActivity" />
+        </activity>
+        <!-- 编辑信息activity -->
+        <activity android:name="com.bitworkshop.litebookscholar.ui.activity.EditInfoActivity" />
+        <!-- 裁剪activity -->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <!-- provider 用于拍照后路径存储 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.bitworkshop.litebookscholar.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <meta-data
+            android:name="com.bitworkshop.litebookscholar.model.LGlideModule"
+            android:value="GlideModule" />
+        <!-- 关于activity -->
+        <activity
+            android:name="com.bitworkshop.litebookscholar.ui.activity.AboutUsActivity"
+            android:parentActivityName="com.bitworkshop.litebookscholar.ui.activity.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.bitworkshop.litebookscholar.ui.activity.SettingsActivity"
+            android:parentActivityName="com.bitworkshop.litebookscholar.ui.activity.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.MainActivity" />
+        </activity>
+        <!-- 书籍详情 -->
+        <activity android:name="com.bitworkshop.litebookscholar.ui.activity.BookInfoActivity" />
+        <!-- 扫描 -->
+        <activity android:name="com.bitworkshop.litebookscholar.ui.activity.ScannerActivity" />
+        <!-- 个人信息 -->
+        <activity android:name="com.bitworkshop.litebookscholar.ui.activity.UserInfoActivity" />
+        <!-- 更新昵称 -->
+        <activity android:name="com.bitworkshop.litebookscholar.ui.activity.UpdateNickNameActivity" />
+    </application>
+
+</manifest>

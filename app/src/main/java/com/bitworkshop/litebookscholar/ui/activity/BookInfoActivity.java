@@ -86,8 +86,11 @@ public class BookInfoActivity extends BaseActivity implements IBookInfoView {
     private static boolean isSave = false;
     private CollapsingToolbarLayoutState state;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> my/zjj
     private enum CollapsingToolbarLayoutState {
         EXPANDED,
         COLLAPSED,

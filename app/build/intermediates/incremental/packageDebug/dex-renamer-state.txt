@@ -1,0 +1,7 @@
+#Wed Nov 16 12:40:33 CST 2016
+base.0=F\:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_8594faa56bb492b80c4e6207ac9cc46c8ac93b1b
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=F\:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_9a9e85d5c0ca3bb00aa9cc4f7707563fb6d69a01\\classes.dex
+base.1=F\:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_9a9e85d5c0ca3bb00aa9cc4f7707563fb6d69a01
+file.0=F\:\\LiteBookScholar-zjj (2)\\LiteBookScholar-zjj\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_8594faa56bb492b80c4e6207ac9cc46c8ac93b1b\\classes.dex

@@ -22,5 +22,4 @@ public class MinePresenter {
         User user = iMineModel.readUserInfo(userAccount);
         iMineView.setUserInfo(user);
     }
-
 }

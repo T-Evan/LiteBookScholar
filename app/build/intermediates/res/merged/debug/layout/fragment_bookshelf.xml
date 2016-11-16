@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:id="@+id/frag_bookshelf_content"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:background="@color/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_layout"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/id_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="10dp"/>
+    </LinearLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/design_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:behavior_hideable="true"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:text="借阅管理"
+            android:textSize="12sp"
+            />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <ImageButton
+                    android:id="@+id/icon_brrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/icon_brrow"
+                    />
+
+                <TextView
+                    android:id="@+id/book_brrow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_toEndOf="@+id/icon_brrow"
+                    android:text="续借图书"
+                    android:textColor="@color/colorPrimaryDark"
+
+                    />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+
+                >
+
+                <ImageButton
+                    android:id="@+id/image_book_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_book"
+                    />
+
+                <TextView
+                    android:id="@+id/book_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_toEndOf="@+id/image_book_detail"
+                    android:text="图书详情"
+                    android:textColor="@color/colorPrimaryDark"/>
+            </RelativeLayout>
+<!--多加一个t让高度显示正常= =-->
+
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>
