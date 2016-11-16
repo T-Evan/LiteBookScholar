@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+
+    <dbname value="litScholar" />
+
+
+    <version value="1" />
+
+    <list>
+        <mapping class="com.bitworkshop.litebookscholar.entity.User" />
+        <mapping class="com.bitworkshop.litebookscholar.entity.BookInfo" />
+        <mapping class="com.bitworkshop.litebookscholar.entity.BookHoldingInfo" />
+    </list>
+    <list />
+
+</litepal>

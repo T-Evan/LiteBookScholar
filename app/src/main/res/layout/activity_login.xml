@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_btu_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appbackground">
+
+    <include
+        android:id="@+id/toolbar_layout"
+        layout="@layout/toolbar_layout" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/edit_username"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/edit_shape"
+            android:drawablePadding="20dp"
+            android:drawableStart="@drawable/ic_image_user_name"
+            android:gravity="center_vertical"
+            android:hint="@string/edit_tip_name"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_lib_account"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/edit_username"
+            android:layout_marginEnd="18dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/edit_shape"
+            android:drawablePadding="20dp"
+            android:drawableStart="@drawable/ic_image_user_name"
+            android:gravity="center_vertical"
+            android:hint="@string/edit_hit_lib_account"
+            android:inputType="number"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/edit_lib_account"
+            android:layout_marginEnd="18dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/edit_shape"
+            android:drawablePadding="20dp"
+            android:drawableStart="@drawable/ic_image_user_name"
+            android:gravity="center_vertical"
+            android:hint="@string/edit_tip_password"
+            android:inputType="textPassword"
+            android:textSize="16sp" />
+
+
+        <Button
+            android:id="@+id/btu_login"
+            android:layout_width="330dp"
+            android:layout_height="45dp"
+            android:layout_below="@+id/edit_password"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/login_btu_selector"
+            android:gravity="center"
+            android:text="@string/login"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+</RelativeLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_update_nick_name"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appbackground"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar_layout"
+        layout="@layout/toolbar_layout" />
+
+    <EditText
+        android:id="@+id/edit_change_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/edit_shape"
+        android:layout_margin="15dp"
+        android:hint="@string/edit_change_nickname_tips"
+        android:imeOptions="actionDone"
+        android:singleLine="true" />
+
+</LinearLayout>

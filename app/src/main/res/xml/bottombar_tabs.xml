@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        activeColor="@color/colorAccent"
+        icon="@drawable/ic__bottom_discovery"
+        id="@+id/tab_discovery"
+        title="发现" />
+    <tab
+        activeColor="@color/colorAccent"
+        icon="@drawable/ic_bottom_bookshelf"
+        id="@+id/tab_bookshelf"
+        title="书架" />
+    <tab
+        activeColor="@color/colorAccent"
+        icon="@drawable/ic_bottom_mine"
+        id="@+id/tab_mine"
+        title="我的" />
+</tabs>
